@@ -1,0 +1,36 @@
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+background: linear-gradient(#e8f5a2, #9acd32);
+}
+header {
+background: #2e7d32;
+color: white;
+padding: 15px;
+}
+.landing .center {
+text-align: center;
+margin-top: 150px;
+}
+.btn {
+background: orange;
+padding: 12px 20px;
+text-decoration: none;
+color: white;
+border-radius: 5px;
+}
+.dashboard {
+padding: 20px;
+}
+.menu-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 15px;
+}
+.card {
+background: white;
+padding: 30px;
+text-align: center;
+border-radius: 10px;
+font-weight: bold;
+}
