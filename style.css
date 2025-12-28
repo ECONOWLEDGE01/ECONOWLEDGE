@@ -1,36 +1,37 @@
 body {
-font-family: Arial, sans-serif;
-margin: 0;
-background: linear-gradient(#e8f5a2, #9acd32);
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
 }
-header {
-background: #2e7d32;
-color: white;
-padding: 15px;
+
+.header {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 16px;
+  text-align: center;
 }
-.landing .center {
-text-align: center;
-margin-top: 150px;
-}
-.btn {
-background: orange;
-padding: 12px 20px;
-text-decoration: none;
-color: white;
-border-radius: 5px;
-}
+
 .dashboard {
-padding: 20px;
+  padding: 30px;
 }
+
 .menu-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
 }
-.card {
-background: white;
-padding: 30px;
-text-align: center;
-border-radius: 10px;
-font-weight: bold;
+
+.menu-grid a {
+  background-color: #f97316;
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.menu-grid a:hover {
+  background-color: #ea580c;
 }
