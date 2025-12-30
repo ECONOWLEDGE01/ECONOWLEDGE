@@ -1,0 +1,193 @@
+/* =========================================
+   STYLE-UI.CSS
+   Fungsi: Mengatur Warna, Font, Border, Dekorasi
+   ========================================= */
+
+/* --- VARIABEL WARNA (Palet Econowledge) --- */
+:root {
+    --lime-neon: #64DD17;     /* Hijau Stabilo Login */
+    --green-leaf: #558B2F;    /* Hijau Header Dashboard */
+    --green-dark: #1B5E20;    /* Hijau Teks Tua */
+    --yellow-pop: #FFF59D;    /* Kuning Search Bar */
+    --orange-cta: linear-gradient(180deg, #FFA726 0%, #F57C00 100%);
+    --bg-gradient: linear-gradient(180deg, #FDD835 0%, #AED581 50%, #7CB342 100%);
+    --border-color: #1a1a1a;  /* Warna Garis Hitam */
+    --border-width: 2.5px;    /* Ketebalan Garis */
+    --shadow-hard: 4px 4px 0px #1a1a1a; /* Bayangan Keras */
+}
+
+/* --- GLOBAL STYLE --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed; /* Kunci background agar tidak ikut scroll */
+    color: #333;
+}
+
+/* Dekorasi Background */
+.gunungan-watermark {
+    opacity: 0.1;
+    filter: grayscale(100%);
+}
+
+/* --- LOGIN UI DETAILS --- */
+.login-batik-frame {
+    background-color: #43A047;
+    background-image: url('assets/images/pattern-batik.png'); /* Pastikan ada file ini */
+    background-size: 100px;
+    border-radius: 30px;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+}
+
+.login-card-inner {
+    background-color: var(--lime-neon);
+    border-radius: 20px;
+    border: var(--border-width) solid var(--border-color);
+    color: white;
+}
+
+h1.ui-title-bold {
+    font-size: 26px;
+    font-weight: 800;
+    text-shadow: 2px 2px 0px var(--border-color); /* Efek teks timbul */
+    margin-bottom: 20px;
+}
+
+.ui-input-field {
+    background: #fff;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: var(--shadow-hard);
+    outline: none;
+}
+.ui-input-field::placeholder { color: #CE93D8; }
+
+.ui-btn-signup {
+    background: var(--orange-cta);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: 12px;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    box-shadow: var(--shadow-hard);
+    transition: transform 0.1s;
+}
+.ui-btn-signup:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.btn-social {
+    background: white;
+    border-radius: 50%;
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: 2px 2px 0px var(--border-color);
+    font-size: 18px;
+}
+
+.agreement-box { font-size: 11px; font-weight: 600; color: #fff; text-shadow: 1px 1px 0 #000; }
+.agreement-box a { color: #fff; text-decoration: underline; }
+
+/* --- DASHBOARD UI DETAILS --- */
+.header-modern {
+    background-color: var(--green-leaf);
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    border-bottom: 3px solid var(--border-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    color: white;
+}
+
+.nav-top i { font-size: 24px; cursor: pointer; }
+
+.avatar-frame {
+    border-radius: 50%;
+    border: var(--border-width) solid white;
+    overflow: hidden;
+    background: #ddd;
+}
+.avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.welcome-msg h2 { font-size: 18px; font-weight: 800; margin-bottom: 5px; }
+.welcome-msg p { font-size: 10px; font-style: italic; opacity: 0.9; }
+
+.wayang-hero {
+    filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.3)); /* Shadow wayang */
+}
+
+/* Search Bar (Kuning Tegas) */
+.search-neo {
+    background-color: var(--yellow-pop);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: 50px;
+    box-shadow: var(--shadow-hard);
+}
+.search-neo input {
+    background: transparent; border: none; outline: none;
+    font-weight: 700; color: var(--border-color);
+}
+.search-neo i { color: var(--border-color); }
+
+/* Menu Icons (Rounded Box) */
+.icon-box-mod {
+    background-color: #C5E1A5;
+    border: var(--border-width) solid var(--green-dark);
+    border-radius: 18px;
+    box-shadow: 4px 4px 0px var(--green-dark);
+    font-size: 28px; color: var(--green-dark);
+    transition: transform 0.1s;
+}
+.icon-box-mod:active { transform: scale(0.95); }
+.icon-box-mod.alert-active { background-color: #FFEB3B; }
+
+.node-text {
+    font-size: 10px; font-weight: 800; color: var(--green-dark);
+    margin-top: 5px; letter-spacing: 0.5px;
+}
+
+/* Trending Section */
+.trending-panel-mod {
+    background: linear-gradient(180deg, #E0E0E0 0%, #9E9E9E 100%);
+    border: var(--border-width) solid #757575;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hard);
+}
+
+.panel-title { font-size: 14px; font-weight: 800; color: #3E2723; margin-bottom: 10px; }
+
+.news-row {
+    background: rgba(255,255,255,0.4);
+    padding: 10px; border-radius: 10px;
+}
+.news-row img {
+    width: 60px; height: 40px; border-radius: 5px; border: 1px solid #000;
+}
+.news-row p { font-size: 10px; font-weight: 700; line-height: 1.2; }
+
+/* Bottom Nav (Transparan Glass) */
+.bottom-nav-mod {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.bottom-nav-mod i {
+    font-size: 24px; color: rgba(255,255,255,0.6);
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
+.bottom-nav-mod i.active {
+    color: #fff; transform: scale(1.1);
+    filter: drop-shadow(0 0 5px #fff);
+}
+/* Tambahan untuk aksesibilitas dan elemen baru */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.form-label { font-size: 12px; font-weight: 600; color: #fff; text-shadow: 1px 1px 0 #000; }
+.divider-text { margin: 20px 0; font-size: 11px; opacity: 0.8; color: #fff; text-shadow: 1px 1px 0 #000; }
+.video-thumb-frame { margin: 0 0 20px 0; padding: 10px; border-radius: 20px; border: var(--border-width) solid var(--border-color); background: rgba(255,255,255,0.1); }
+.video-thumb { position: relative; border-radius: 10px; overflow: hidden; border: 2px solid #1a1a1a; }
+.play-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; filter: drop-shadow(0 4px 0 #000); font-size: 50px; }
+.video-desc { text-align: left; margin-top: 10px; font-size: 11px; color: #333; }
+.news-time { font-size: 9px; opacity: 0.7; color: #666; }
