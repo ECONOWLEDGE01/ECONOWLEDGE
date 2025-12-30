@@ -1,43 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>EcoNowledge Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login | Econowledge</title>
+    
+    <link rel="stylesheet" href="style-base.css">
+    <link rel="stylesheet" href="style-ui.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<header class="header">
-  <h1>EcoNowledge</h1>
-</header>
+    <div class="app-container">
+        
+        <header class="login-header">
+            <img src="assets/images/logo.png" alt="Logo Econowledge - Platform Edukasi Ekonomi" class="img-logo">
+        </header>
 
-<section class="dashboard">
-  <h2>Halo! Eno People</h2>
+        <section class="login-section">
+            <div class="login-batik-frame">
+                
+                <div class="login-card-inner">
+                    <h1 class="ui-title-bold">Selamat Datang</h1>
+                    
+                    <form action="dashboard.html" method="post"> <!-- Tambah method untuk form -->
+                        <div class="ui-form-group">
+                            <label for="email" class="sr-only">Email</label> <!-- Label tersembunyi untuk aksesibilitas -->
+                            <input type="email" id="email" placeholder="Email address" class="ui-input-field" required>
+                        </div>
+                        <div class="ui-form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" id="password" placeholder="Enter password" class="ui-input-field" required>
+                        </div>
+                        
+                        <div class="form-utils">
+                            <input type="checkbox" id="remember">
+                            <label for="remember" class="form-label">Remember me</label>
+                        </div>
 
-  <div class="stats">
-    <div class="card">
-      <h3>UMKM Terdaftar</h3>
-      <p>124</p>
-    </div>
-    <div class="card">
-      <h3>Transaksi Digital</h3>
-      <p>Rp 87.500.000</p>
-    </div>
-    <div class="card">
-      <h3>Peningkatan Literasi</h3>
-      <p>+43%</p>
-    </div>
-  </div>
+                        <button type="submit" class="ui-btn-signup">Login</button> <!-- Ubah ke "Login" -->
 
-  <div class="menu-grid">
-    <a href="econo-read.html">Econo Read</a>
-    <a href="econo-vision.html">Econo Vision</a>
-    <a href="econo-listen.html">Econo Listen</a>
-    <a href="econo-forum.html">Econo Forum</a>
-    <a href="econo-alert.html">Econo Alert</a>
-    <a href="econo-insights.html">Econo Insights</a>
-  </div>
-</section>
+                        <div class="agreement-box">
+                            <input type="checkbox" id="agree" required>
+                            <label for="agree" class="form-label">I agree to the <a href="#">Terms</a> & <a href="#">Privacy Policy</a>.</label>
+                        </div>
+
+                        <div class="divider-text">or sign up with</div>
+
+                        <div class="social-flex">
+                            <button type="button" class="btn-social" aria-label="Login with Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button type="button" class="btn-social" aria-label="Login with Google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button type="button" class="btn-social" aria-label="Login with Apple">
+                                <i class="fab fa-apple"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>
