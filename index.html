@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECONOWLEDGE - Login</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* --- STYLE TIDAK DIUBAH (Sesuai Permintaan) --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -32,263 +29,116 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .logo-section {
-            text-align: center;
-            margin-bottom: 30px;
+        .logo-section { text-align: center; margin-bottom: 30px; }
+        .logo-section h1 { color: #667eea; font-size: 28px; margin-bottom: 8px; font-weight: 700; }
+        .logo-section p { color: #999; font-size: 14px; }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 14px; }
+        
+        .form-group.error label { color: #e74c3c; }
+
+        input[type="email"], input[type="password"] {
+            width: 100%; padding: 12px 16px;
+            border: 2px solid #e0e0e0; border-radius: 8px;
+            font-size: 14px; transition: all 0.3s ease; font-family: inherit;
         }
 
-        .logo-section h1 {
-            color: #667eea;
-            font-size: 28px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .logo-section p {
-            color: #999;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .form-group.error label {
-            color: #e74c3c;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
+        input[type="email"]:focus, input[type="password"]:focus {
+            outline: none; border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .form-group.error input {
-            border-color: #e74c3c;
-        }
-
-        .form-group.error input:focus {
-            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
-        }
+        .form-group.error input { border-color: #e74c3c; }
+        .form-group.error input:focus { box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1); }
 
         .error-message {
-            color: #e74c3c;
-            font-size: 13px;
-            margin-top: 6px;
+            color: #e74c3c; font-size: 13px; margin-top: 6px;
             display: none;
         }
-
-        .form-group.error .error-message {
-            display: block;
-        }
+        .form-group.error .error-message { display: block; }
 
         .options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            font-size: 13px;
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 24px; font-size: 13px;
         }
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        input[type="checkbox"] {
-            cursor: pointer;
-            accent-color: #667eea;
-        }
-
-        .remember-me label {
-            margin: 0;
-            font-weight: 500;
-            color: #666;
-            cursor: pointer;
-        }
+        .remember-me { display: flex; align-items: center; gap: 6px; }
+        input[type="checkbox"] { cursor: pointer; accent-color: #667eea; }
+        .remember-me label { margin: 0; font-weight: 500; color: #666; cursor: pointer; }
 
         .forgot-password {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
+            color: #667eea; text-decoration: none; font-weight: 600;
             transition: color 0.3s ease;
         }
-
-        .forgot-password:hover {
-            color: #764ba2;
-        }
+        .forgot-password:hover { color: #764ba2; }
 
         .submit-btn {
-            width: 100%;
-            padding: 12px;
+            width: 100%; padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 16px;
+            color: white; border: none; border-radius: 8px;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; margin-bottom: 16px;
         }
-
         .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
-
-        .submit-btn:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
+        .submit-btn:active:not(:disabled) { transform: translateY(0); }
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
         .spinner {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
+            display: inline-block; width: 14px; height: 14px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
+            border-radius: 50%; border-top-color: white;
             animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+            margin-right: 8px; vertical-align: middle;
         }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            display: none;
-            animation: slideIn 0.3s ease-out;
+            padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;
+            font-size: 13px; display: none; animation: slideIn 0.3s ease-out;
         }
-
-        .alert.show {
-            display: block;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
+        .alert.show { display: block; }
+        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alert-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
 
         .demo-credentials {
-            background-color: #f0f4ff;
-            border: 1px solid #dde5f7;
-            border-radius: 8px;
-            padding: 12px 14px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: #444;
+            background-color: #f0f4ff; border: 1px solid #dde5f7;
+            border-radius: 8px; padding: 12px 14px; margin-bottom: 20px;
+            font-size: 13px; color: #444;
         }
+        .demo-credentials strong { color: #667eea; }
 
-        .demo-credentials strong {
-            color: #667eea;
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 13px;
-        }
-
+        .signup-link { text-align: center; margin-top: 20px; color: #666; font-size: 13px; }
         .signup-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
+            color: #667eea; text-decoration: none; font-weight: 600;
             transition: color 0.3s ease;
         }
-
-        .signup-link a:hover {
-            color: #764ba2;
-        }
+        .signup-link a:hover { color: #764ba2; }
 
         .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5); display: none;
+            justify-content: center; align-items: center; z-index: 1000;
         }
-
-        .loading-overlay.show {
-            display: flex;
-        }
+        .loading-overlay.show { display: flex; }
 
         @media (max-width: 480px) {
-            .login-container {
-                padding: 40px 24px;
-            }
-
-            .logo-section h1 {
-                font-size: 24px;
-            }
+            .login-container { padding: 40px 24px; }
+            .logo-section h1 { font-size: 24px; }
         }
     </style>
 </head>
 <body>
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
+        <div class="spinner" style="width: 40px; height: 40px; border-width: 4px;"></div>
     </div>
 
     <div class="login-container">
@@ -307,7 +157,7 @@
             Password: <strong>password123</strong>
         </div>
 
-        <form id="loginForm">
+        <form id="loginForm" novalidate>
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input 
@@ -347,23 +197,22 @@
             </button>
 
             <div class="signup-link">
-                Don't have an account? <a href="#signup">Create one now</a>
+                Don't have an account? <a href="#">Create one now</a>
             </div>
         </form>
     </div>
 
     <script>
-        // Configuration
+        // --- KONFIGURASI UTAMA ---
         const CONFIG = {
             DEMO_EMAIL: 'user@econowledge.com',
             DEMO_PASSWORD: 'password123',
-            DASHBOARD_URL: 'dashboard.html',
+            DASHBOARD_URL: 'dashboard.html', // Pastikan file ini ada di folder yang sama
             SESSION_KEY: 'econowledge_session',
-            USER_KEY: 'econowledge_user',
             REMEMBER_KEY: 'econowledge_remember'
         };
 
-        // DOM Elements
+        // --- SELECTOR DOM ---
         const loginForm = document.getElementById('loginForm');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
@@ -374,102 +223,145 @@
         const infoAlert = document.getElementById('infoAlert');
         const loadingOverlay = document.getElementById('loadingOverlay');
 
-        // Initialize
+        // --- INISIALISASI ---
         document.addEventListener('DOMContentLoaded', () => {
             initializeForm();
-            checkExistingSession();
+            // checkExistingSession(); // Opsional: Aktifkan jika ingin auto-login
         });
 
-        /**
-         * Initialize form with saved credentials if available
-         */
+        // Cek LocalStorage untuk "Remember Me"
         function initializeForm() {
-            const savedEmail = localStorage.getItem(CONFIG.REMEMBER_KEY);
-            if (savedEmail) {
-                emailInput.value = savedEmail;
-                rememberCheckbox.checked = true;
-                passwordInput.focus();
+            try {
+                const savedEmail = localStorage.getItem(CONFIG.REMEMBER_KEY);
+                if (savedEmail) {
+                    emailInput.value = savedEmail;
+                    rememberCheckbox.checked = true;
+                }
+            } catch (e) {
+                console.log("LocalStorage access denied/restricted");
             }
         }
 
-        /**
-         * Check if user already has an active session
-         */
+        // Cek Sesi yang sudah ada (Auto Redirect)
         function checkExistingSession() {
             const session = localStorage.getItem(CONFIG.SESSION_KEY);
             if (session) {
                 try {
                     const sessionData = JSON.parse(session);
                     if (isSessionValid(sessionData)) {
-                        showInfo('Session found. Redirecting to dashboard...');
+                        showInfo('Session active. Redirecting...');
                         setTimeout(() => {
                             window.location.href = CONFIG.DASHBOARD_URL;
                         }, 1000);
                     } else {
                         localStorage.removeItem(CONFIG.SESSION_KEY);
-                        localStorage.removeItem(CONFIG.USER_KEY);
                     }
                 } catch (error) {
-                    console.error('Error parsing session:', error);
                     localStorage.removeItem(CONFIG.SESSION_KEY);
-                    localStorage.removeItem(CONFIG.USER_KEY);
                 }
             }
         }
 
-        /**
-         * Check if session is still valid
-         */
+        // Validasi durasi sesi (24 Jam)
         function isSessionValid(sessionData) {
-            if (!sessionData || !sessionData.timestamp) {
-                return false;
-            }
-
-            // Session expires after 24 hours
+            if (!sessionData || !sessionData.timestamp) return false;
             const sessionAge = Date.now() - sessionData.timestamp;
             const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
-
             return sessionAge < TWENTY_FOUR_HOURS;
         }
 
-        /**
-         * Form submission handler
-         */
+        // --- HANDLER SUBMIT FORM ---
         loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Mencegah reload halaman standar
             clearAlerts();
 
-            // Validate form
-            if (!validateForm()) {
-                return;
-            }
+            if (!validateForm()) return;
 
             await handleLogin();
         });
 
-        /**
-         * Validate form inputs
-         */
+        // --- LOGIKA LOGIN UTAMA ---
+        async function handleLogin() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            // UI Loading state
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Signing In...';
+            showLoadingOverlay(true);
+
+            try {
+                // Simulasi delay API (Agar terlihat prosesnya)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Cek Kredensial
+                if (email === CONFIG.DEMO_EMAIL && password === CONFIG.DEMO_PASSWORD) {
+                    
+                    // 1. Simpan Sesi
+                    createSession(email);
+                    
+                    // 2. Handle Remember Me
+                    if (rememberCheckbox.checked) {
+                        localStorage.setItem(CONFIG.REMEMBER_KEY, email);
+                    } else {
+                        localStorage.removeItem(CONFIG.REMEMBER_KEY);
+                    }
+
+                    // 3. Tampilkan Sukses & Redirect
+                    showSuccess('Login successful! Redirecting to Dashboard...');
+                    
+                    setTimeout(() => {
+                        window.location.href = CONFIG.DASHBOARD_URL;
+                    }, 1000);
+
+                } else {
+                    showError('Invalid email or password. Please try again.');
+                    passwordInput.value = ''; // Clear password salah
+                    passwordInput.focus();
+                }
+
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('An error occurred. Please try again.');
+            } finally {
+                // Reset UI state (jika gagal)
+                if (submitBtn.disabled && document.getElementById('successAlert').style.display !== 'block') {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    showLoadingOverlay(false);
+                }
+            }
+        }
+
+        // --- FUNGSI PENDUKUNG ---
+
+        function createSession(email) {
+            const sessionData = {
+                email: email,
+                timestamp: Date.now(),
+                sessionId: 'sess_' + Math.random().toString(36).substr(2, 9)
+            };
+            localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(sessionData));
+        }
+
         function validateForm() {
             let isValid = true;
-
-            // Validate email
+            
+            // Validasi Email
             if (!emailInput.value.trim()) {
-                setFieldError('email', 'Email address is required');
+                setFieldError('email', 'Email is required');
                 isValid = false;
             } else if (!isValidEmail(emailInput.value)) {
-                setFieldError('email', 'Please enter a valid email address');
+                setFieldError('email', 'Invalid email format');
                 isValid = false;
             } else {
                 clearFieldError('email');
             }
 
-            // Validate password
+            // Validasi Password
             if (!passwordInput.value) {
                 setFieldError('password', 'Password is required');
-                isValid = false;
-            } else if (passwordInput.value.length < 6) {
-                setFieldError('password', 'Password must be at least 6 characters');
                 isValid = false;
             } else {
                 clearFieldError('password');
@@ -478,192 +370,52 @@
             return isValid;
         }
 
-        /**
-         * Validate email format
-         */
         function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
-        /**
-         * Set field error
-         */
-        function setFieldError(fieldName, errorMessage) {
+        function setFieldError(fieldName, msg) {
             const input = document.getElementById(fieldName);
-            const errorElement = document.getElementById(`${fieldName}Error`);
-            const formGroup = input.closest('.form-group');
-
-            input.classList.add('error');
-            formGroup.classList.add('error');
-            errorElement.textContent = errorMessage;
+            const errDiv = document.getElementById(`${fieldName}Error`);
+            input.closest('.form-group').classList.add('error');
+            errDiv.textContent = msg;
         }
 
-        /**
-         * Clear field error
-         */
         function clearFieldError(fieldName) {
             const input = document.getElementById(fieldName);
-            const errorElement = document.getElementById(`${fieldName}Error`);
-            const formGroup = input.closest('.form-group');
-
-            input.classList.remove('error');
-            formGroup.classList.remove('error');
-            errorElement.textContent = '';
+            const errDiv = document.getElementById(`${fieldName}Error`);
+            input.closest('.form-group').classList.remove('error');
+            errDiv.textContent = '';
         }
 
-        /**
-         * Handle login process
-         */
-        async function handleLogin() {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-
-            submitBtn.disabled = true;
-            showLoadingOverlay(true);
-
-            try {
-                // Simulate API call with 800ms delay for UX
-                await new Promise(resolve => setTimeout(resolve, 800));
-
-                // Validate credentials
-                if (email === CONFIG.DEMO_EMAIL && password === CONFIG.DEMO_PASSWORD) {
-                    // Successful login
-                    createSession(email);
-                    
-                    if (rememberCheckbox.checked) {
-                        localStorage.setItem(CONFIG.REMEMBER_KEY, email);
-                    } else {
-                        localStorage.removeItem(CONFIG.REMEMBER_KEY);
-                    }
-
-                    showSuccess('Login successful! Redirecting...');
-                    
-                    setTimeout(() => {
-                        window.location.href = CONFIG.DASHBOARD_URL;
-                    }, 1000);
-                } else {
-                    // Invalid credentials
-                    showError('Invalid email or password. Please try again.');
-                    clearFieldError('password');
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                showError('An error occurred during login. Please try again.');
-            } finally {
-                submitBtn.disabled = false;
-                showLoadingOverlay(false);
-            }
-        }
-
-        /**
-         * Create user session in localStorage
-         */
-        function createSession(email) {
-            const sessionData = {
-                email: email,
-                timestamp: Date.now(),
-                sessionId: generateSessionId()
-            };
-
-            const userData = {
-                email: email,
-                name: email.split('@')[0],
-                loginTime: new Date().toISOString()
-            };
-
-            localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(sessionData));
-            localStorage.setItem(CONFIG.USER_KEY, JSON.stringify(userData));
-        }
-
-        /**
-         * Generate unique session ID
-         */
-        function generateSessionId() {
-            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        }
-
-        /**
-         * Show loading overlay
-         */
-        function showLoadingOverlay(show) {
-            if (show) {
-                loadingOverlay.classList.add('show');
-            } else {
-                loadingOverlay.classList.remove('show');
-            }
-        }
-
-        /**
-         * Show error alert
-         */
-        function showError(message) {
-            errorAlert.textContent = message;
+        function showError(msg) {
+            errorAlert.textContent = msg;
             errorAlert.classList.add('show');
-            errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        /**
-         * Show success alert
-         */
-        function showSuccess(message) {
-            successAlert.textContent = message;
+        function showSuccess(msg) {
+            successAlert.textContent = msg;
             successAlert.classList.add('show');
-            successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        /**
-         * Show info alert
-         */
-        function showInfo(message) {
-            infoAlert.textContent = message;
+        function showInfo(msg) {
+            infoAlert.textContent = msg;
             infoAlert.classList.add('show');
         }
 
-        /**
-         * Clear all alerts
-         */
         function clearAlerts() {
             errorAlert.classList.remove('show');
             successAlert.classList.remove('show');
             infoAlert.classList.remove('show');
         }
 
-        /**
-         * Real-time validation on input change
-         */
-        emailInput.addEventListener('blur', () => {
-            if (emailInput.value.trim()) {
-                if (isValidEmail(emailInput.value)) {
-                    clearFieldError('email');
-                } else {
-                    setFieldError('email', 'Please enter a valid email address');
-                }
-            }
-        });
+        function showLoadingOverlay(show) {
+            loadingOverlay.classList.toggle('show', show);
+        }
 
-        passwordInput.addEventListener('blur', () => {
-            if (passwordInput.value && passwordInput.value.length < 6) {
-                setFieldError('password', 'Password must be at least 6 characters');
-            } else if (passwordInput.value) {
-                clearFieldError('password');
-            }
-        });
-
-        /**
-         * Clear errors on input
-         */
-        emailInput.addEventListener('input', () => {
-            if (emailInput.classList.contains('error')) {
-                clearFieldError('email');
-            }
-        });
-
-        passwordInput.addEventListener('input', () => {
-            if (passwordInput.classList.contains('error')) {
-                clearFieldError('password');
-            }
-        });
+        // Hapus error saat mengetik
+        emailInput.addEventListener('input', () => clearFieldError('email'));
+        passwordInput.addEventListener('input', () => clearFieldError('password'));
     </script>
 </body>
 </html>
