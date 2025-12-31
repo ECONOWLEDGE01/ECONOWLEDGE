@@ -1,20 +1,1158 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Econo Read | EcoNowledge</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECONOWLEDGE Forum - Economic Discussion Community</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-icon {
+            font-size: 2em;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Top Actions */
+        .top-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-create-thread {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-create-thread:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background: #764ba2;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Categories */
+        .categories {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .categories h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .category-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .category-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .category-item h3 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .category-item p {
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        .category-item .count {
+            font-weight: bold;
+            margin-top: 8px;
+            font-size: 1.2em;
+        }
+
+        /* Threads Section */
+        .threads-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-header h2 {
+            color: #667eea;
+            font-size: 1.5em;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Thread List */
+        .thread-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .thread-item {
+            display: grid;
+            grid-template-columns: 60px 1fr 120px 100px;
+            gap: 20px;
+            align-items: start;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .thread-item:hover {
+            background: #f0f2f5;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .thread-item {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .thread-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .thread-info h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+        }
+
+        .thread-info p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .thread-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .thread-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .thread-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .thread-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #667eea;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-right: 5px;
+        }
+
+        .thread-badge.trending {
+            background: #ff6b6b;
+        }
+
+        .thread-badge.solved {
+            background: #51cf66;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        /* Popular Topics */
+        .popular-topics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .topic-item {
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .topic-item:hover {
+            background: #f0f2f5;
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .topic-item p {
+            margin: 0;
+            color: #333;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .topic-count {
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 3px;
+        }
+
+        /* Top Contributors */
+        .contributors-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contributor-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contributor-item:hover {
+            background: #f0f2f5;
+            transform: translateX(5px);
+        }
+
+        .contributor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .contributor-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contributor-info p {
+            margin: 0;
+            color: #333;
+            font-size: 0.95em;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contributor-posts {
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 2px;
+        }
+
+        .contributor-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #667eea;
+            color: white;
+            border-radius: 10px;
+            font-size: 0.75em;
+            flex-shrink: 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-item-label {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .thread-item {
+                padding: 15px;
+            }
+
+            .modal-content {
+                padding: 25px;
+            }
+
+            .top-actions {
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>
+                <span class="header-icon">💬</span>
+                ECONOWLEDGE Forum
+            </h1>
+            <p>Join the global conversation on economics, markets, and financial insights</p>
+        </div>
+    </div>
 
-<header class="header">
-  <h1>Econo Read</h1>
-</header>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Statistics Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-item-number">1,247</div>
+                <div class="stat-item-label">Active Threads</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-item-number">5,893</div>
+                <div class="stat-item-label">Total Posts</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-item-number">892</div>
+                <div class="stat-item-label">Community Members</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-item-number">156</div>
+                <div class="stat-item-label">Topics Discussed</div>
+            </div>
+        </div>
 
-<section class="dashboard">
-  <p>Modul literasi ekonomi digital berbasis konten edukatif.</p>
-  <a href="index.html">← Kembali ke Dashboard</a>
-</section>
+        <!-- Top Actions -->
+        <div class="top-actions">
+            <button class="btn-create-thread" onclick="openCreateThreadModal()">+ Create New Thread</button>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search discussions...">
+                <button onclick="searchThreads()">Search</button>
+            </div>
+        </div>
 
+        <!-- Categories -->
+        <div class="categories">
+            <h2>📚 Forum Categories</h2>
+            <div class="category-list">
+                <div class="category-item" onclick="filterByCategory('macroeconomics')">
+                    <h3>Macroeconomics</h3>
+                    <p>GDP, inflation, monetary policy</p>
+                    <div class="count">324 threads</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('microeconomics')">
+                    <h3>Microeconomics</h3>
+                    <p>Markets, pricing, competition</p>
+                    <div class="count">287 threads</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('finance')">
+                    <h3>Finance & Banking</h3>
+                    <p>Investments, stocks, bonds</p>
+                    <div class="count">412 threads</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('international')">
+                    <h3>International Trade</h3>
+                    <p>Global economics, tariffs</p>
+                    <div class="count">198 threads</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('development')">
+                    <h3>Development Economics</h3>
+                    <p>Growth, poverty, sustainability</p>
+                    <div class="count">156 threads</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory('behavioral')">
+                    <h3>Behavioral Economics</h3>
+                    <p>Psychology, decision-making</p>
+                    <div class="count">139 threads</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout: Threads + Sidebar -->
+        <div class="main-layout">
+            <!-- Threads Section -->
+            <div class="threads-section">
+                <div class="section-header">
+                    <h2>💡 Discussion Threads</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterThreads('recent')">Most Recent</button>
+                        <button class="filter-btn" onclick="filterThreads('popular')">Most Popular</button>
+                        <button class="filter-btn" onclick="filterThreads('unanswered')">Unanswered</button>
+                    </div>
+                </div>
+
+                <div class="thread-list" id="threadList">
+                    <!-- Thread Item 1 -->
+                    <div class="thread-item">
+                        <div class="thread-avatar">JM</div>
+                        <div class="thread-info">
+                            <h3>Impact of Central Bank Rate Hikes on Market Volatility</h3>
+                            <p>Exploring the correlation between recent aggressive interest rate increases and stock market movements. What are your perspectives on long-term implications?</p>
+                            <div class="thread-meta">
+                                <span>👤 James Mitchell</span>
+                                <span>📅 2 hours ago</span>
+                                <span>📂 Macroeconomics</span>
+                            </div>
+                            <span class="thread-badge trending">🔥 Trending</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">
+                                <div class="stat-number">47</div>
+                                <div class="stat-label">Replies</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">832</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 2 -->
+                    <div class="thread-item">
+                        <div class="thread-avatar">SK</div>
+                        <div class="thread-info">
+                            <h3>Cryptocurrency Regulation: Finding the Balance</h3>
+                            <p>A comprehensive discussion on regulatory frameworks for digital assets. How should governments approach crypto without stifling innovation?</p>
+                            <div class="thread-meta">
+                                <span>👤 Sarah Kumar</span>
+                                <span>📅 4 hours ago</span>
+                                <span>📂 Finance & Banking</span>
+                            </div>
+                            <span class="thread-badge trending">🔥 Trending</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">
+                                <div class="stat-number">63</div>
+                                <div class="stat-label">Replies</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">1,245</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 3 -->
+                    <div class="thread-item">
+                        <div class="thread-avatar">MC</div>
+                        <div class="thread-info">
+                            <h3>Behavioral Economics in Consumer Decision-Making</h3>
+                            <p>How psychological biases influence purchasing patterns and market behavior. Real-world examples and research findings welcome!</p>
+                            <div class="thread-meta">
+                                <span>👤 Maria Chen</span>
+                                <span>📅 6 hours ago</span>
+                                <span>📂 Behavioral Economics</span>
+                            </div>
+                            <span class="thread-badge solved">✓ Solved</span>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">
+                                <div class="stat-number">28</div>
+                                <div class="stat-label">Replies</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">564</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 4 -->
+                    <div class="thread-item">
+                        <div class="thread-avatar">AR</div>
+                        <div class="thread-info">
+                            <h3>Supply Chain Economics in the Post-Pandemic Era</h3>
+                            <p>Analysis of how global supply chains have evolved after COVID-19. Discussing reshoring, automation, and resilience strategies.</p>
+                            <div class="thread-meta">
+                                <span>👤 Alex Rodriguez</span>
+                                <span>📅 8 hours ago</span>
+                                <span>📂 International Trade</span>
+                            </div>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">
+                                <div class="stat-number">34</div>
+                                <div class="stat-label">Replies</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">678</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 5 -->
+                    <div class="thread-item">
+                        <div class="thread-avatar">ET</div>
+                        <div class="thread-info">
+                            <h3>Sustainable Development Goals: Economic Impact Assessment</h3>
+                            <p>Evaluating the financial implications of achieving SDGs by 2030. What are the most impactful investments for developing nations?</p>
+                            <div class="thread-meta">
+                                <span>👤 Emily Thompson</span>
+                                <span>📅 10 hours ago</span>
+                                <span>📂 Development Economics</span>
+                            </div>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">
+                                <div class="stat-number">22</div>
+                                <div class="stat-label">Replies</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">445</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thread Item 6 -->
+                    <div class="thread-item">
+                        <div class="thread-avatar">DP</div>
+                        <div class="thread-info">
+                            <h3>Labor Market Dynamics: Skills Gap and Future of Work</h3>
+                            <p>Discussing the growing skills gap in the labor market and how economies can adapt to emerging job demands.</p>
+                            <div class="thread-meta">
+                                <span>👤 David Park</span>
+                                <span>📅 12 hours ago</span>
+                                <span>📂 Microeconomics</span>
+                            </div>
+                        </div>
+                        <div class="thread-stats">
+                            <div class="stat">
+                                <div class="stat-number">19</div>
+                                <div class="stat-label">Replies</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">356</div>
+                                <div class="stat-label">Views</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Popular Topics -->
+                <div class="sidebar-card">
+                    <h3>🔥 Popular Topics</h3>
+                    <div class="popular-topics-list">
+                        <div class="topic-item" onclick="searchByTopic('Inflation Control')">
+                            <p>Inflation Control Strategies</p>
+                            <div class="topic-count">142 posts</div>
+                        </div>
+                        <div class="topic-item" onclick="searchByTopic('Market Trends')">
+                            <p>Tech Stock Market Trends</p>
+                            <div class="topic-count">128 posts</div>
+                        </div>
+                        <div class="topic-item" onclick="searchByTopic('Green Economy')">
+                            <p>Green Economy & ESG</p>
+                            <div class="topic-count">115 posts</div>
+                        </div>
+                        <div class="topic-item" onclick="searchByTopic('Unemployment')">
+                            <p>Unemployment Trends 2025</p>
+                            <div class="topic-count">98 posts</div>
+                        </div>
+                        <div class="topic-item" onclick="searchByTopic('Trade Policy')">
+                            <p>Trade Policy Changes</p>
+                            <div class="topic-count">87 posts</div>
+                        </div>
+                        <div class="topic-item" onclick="searchByTopic('AI Economics')">
+                            <p>AI Impact on Economy</p>
+                            <div class="topic-count">76 posts</div>
+                        </div>
+                        <div class="topic-item" onclick="searchByTopic('Housing Market')">
+                            <p>Housing Market Analysis</p>
+                            <div class="topic-count">64 posts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Contributors -->
+                <div class="sidebar-card">
+                    <h3>👥 Top Contributors</h3>
+                    <div class="contributors-list">
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">DR</div>
+                            <div class="contributor-info">
+                                <p>Dr. Richard Bennett</p>
+                                <div class="contributor-posts">234 posts</div>
+                            </div>
+                            <span class="contributor-badge">Expert</span>
+                        </div>
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">PW</div>
+                            <div class="contributor-info">
+                                <p>Prof. William Chen</p>
+                                <div class="contributor-posts">198 posts</div>
+                            </div>
+                            <span class="contributor-badge">Expert</span>
+                        </div>
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">LJ</div>
+                            <div class="contributor-info">
+                                <p>Lisa Johnson</p>
+                                <div class="contributor-posts">156 posts</div>
+                            </div>
+                            <span class="contributor-badge">Contributor</span>
+                        </div>
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">MG</div>
+                            <div class="contributor-info">
+                                <p>Marcus Green</p>
+                                <div class="contributor-posts">134 posts</div>
+                            </div>
+                            <span class="contributor-badge">Contributor</span>
+                        </div>
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">SP</div>
+                            <div class="contributor-info">
+                                <p>Sarah Phillips</p>
+                                <div class="contributor-posts">112 posts</div>
+                            </div>
+                        </div>
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">NK</div>
+                            <div class="contributor-info">
+                                <p>Nikolai Kozlov</p>
+                                <div class="contributor-posts">98 posts</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Thread Modal -->
+    <div id="createThreadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>✨ Create New Discussion Thread</h2>
+                <button class="close-btn" onclick="closeCreateThreadModal()">&times;</button>
+            </div>
+
+            <form id="createThreadForm" onsubmit="submitThread(event)">
+                <div class="form-group">
+                    <label for="threadTitle">Thread Title</label>
+                    <input type="text" id="threadTitle" placeholder="Write a clear, descriptive title..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="threadCategory">Category</label>
+                    <select id="threadCategory" required>
+                        <option value="">Select a category...</option>
+                        <option value="macroeconomics">Macroeconomics</option>
+                        <option value="microeconomics">Microeconomics</option>
+                        <option value="finance">Finance & Banking</option>
+                        <option value="international">International Trade</option>
+                        <option value="development">Development Economics</option>
+                        <option value="behavioral">Behavioral Economics</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="threadDescription">Description</label>
+                    <textarea id="threadDescription" placeholder="Describe your topic in detail. Include any context or questions..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="threadTags">Tags (comma-separated)</label>
+                    <input type="text" id="threadTags" placeholder="e.g., inflation, monetary-policy, central-bank">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateThreadModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Thread</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openCreateThreadModal() {
+            document.getElementById('createThreadModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCreateThreadModal() {
+            document.getElementById('createThreadModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.getElementById('createThreadForm').reset();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('createThreadModal');
+            if (event.target == modal) {
+                closeCreateThreadModal();
+            }
+        }
+
+        // Form Submission
+        function submitThread(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('threadTitle').value;
+            const category = document.getElementById('threadCategory').value;
+            const description = document.getElementById('threadDescription').value;
+            const tags = document.getElementById('threadTags').value;
+
+            // Create notification
+            alert(`✅ Thread Created Successfully!\n\nTitle: ${title}\nCategory: ${category}\n\nYour thread is now live in the forum!`);
+
+            closeCreateThreadModal();
+        }
+
+        // Filter Functions
+        function filterThreads(filterType) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // In a real app, this would fetch filtered threads
+            console.log('Filtering threads by:', filterType);
+        }
+
+        function filterByCategory(category) {
+            alert(`Filtering discussions in: ${category.charAt(0).toUpperCase() + category.slice(1)}`);
+            console.log('Category filter:', category);
+        }
+
+        function searchThreads() {
+            const searchQuery = document.getElementById('searchInput').value;
+            if (searchQuery.trim()) {
+                alert(`🔍 Searching for: "${searchQuery}"`);
+                console.log('Search query:', searchQuery);
+            }
+        }
+
+        function searchByTopic(topic) {
+            document.getElementById('searchInput').value = topic;
+            alert(`📌 Showing discussions about: ${topic}`);
+            console.log('Topic search:', topic);
+        }
+
+        // Allow searching on Enter key
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchThreads();
+                }
+            });
+        });
+
+        // Add click handlers to thread items
+        document.addEventListener('DOMContentLoaded', function() {
+            const threadItems = document.querySelectorAll('.thread-item');
+            threadItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.thread-info h3').textContent;
+                    alert(`Opening discussion: "${title}"\n\nIn a full implementation, this would load the complete thread with all replies.`);
+                });
+            });
+
+            const topicItems = document.querySelectorAll('.topic-item');
+            topicItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
