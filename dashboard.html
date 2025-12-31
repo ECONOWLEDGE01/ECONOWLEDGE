@@ -348,87 +348,82 @@
     </div>
 
     <script>
-        // ==========================================
-        // SESSION VALIDATION (Mencegah Loop)
-        // ==========================================
-        function checkLoginSession() {
-            const userSession = localStorage.getItem('userSession');
-            const userName = localStorage.getItem('userName');
+       // ==========================================
+// SESSION VALIDATION (Silent Check)
+// ==========================================
+function checkLoginSession() {
+    const userSession = localStorage.getItem('userSession');
+    const userName = localStorage.getItem('userName');
 
-            if (!userSession || !userName) {
-                // Jangan pakai alert berlebihan agar tidak loop, langsung arahkan
-                window.location.replace('index.html');
-                return false;
-            }
-            return true;
-        }
+    if (!userSession || !userName) {
+        // Jika sesi hilang, langsung lempar ke index tanpa modal
+        window.location.replace('index.html');
+        return false;
+    }
+    return true;
+}
 
-        function displayUserName() {
-            const userName = localStorage.getItem('userName');
-            const userNameDisplay = document.getElementById('userNameDisplay');
-            if (userName && userNameDisplay) {
-                userNameDisplay.textContent = userName;
-            }
-        }
+function displayUserName() {
+    const userName = localStorage.getItem('userName');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    if (userName && userNameDisplay) {
+        userNameDisplay.textContent = userName;
+    }
+}
 
-        // ==========================================
-        // NAVIGASI (Sesuaikan dengan fitur tersedia)
-        // ==========================================
-        function navigateToFeature(featurePage) {
-            // Cek sesi sebelum pindah
-            if (!checkLoginSession()) return;
+// ==========================================
+// NAVIGASI (Hanya Muncul Saat MASUK ke Fitur)
+// ==========================================
+function navigateToFeature(featurePage) {
+    if (!checkLoginSession()) return;
 
-            const navigationModal = document.getElementById('navigationModal');
-            const navigationMessage = document.getElementById('navigationMessage');
-            
-            // Nama fitur untuk pesan visual
-            const featureTitle = featurePage.split('.')[0].replace('-', ' ').toUpperCase();
-            
-            navigationMessage.innerHTML = `Accessing <strong>${featureTitle}</strong>. Please wait...`;
-            navigationModal.style.display = 'block';
+    const navigationModal = document.getElementById('navigationModal');
+    const navigationMessage = document.getElementById('navigationMessage');
+    
+    // Tampilkan modal HANYA saat navigasi ke depan (ke arah fitur)
+    const featureTitle = featurePage.split('.')[0].replace('-', ' ').toUpperCase();
+    navigationMessage.innerHTML = `Accessing <strong>${featureTitle}</strong>. Please wait...`;
+    navigationModal.style.display = 'block';
 
-            // Navigasi setelah delay singkat
-            setTimeout(() => {
-                window.location.href = featurePage;
-            }, 800);
-        }
+    setTimeout(() => {
+        window.location.href = featurePage;
+    }, 800);
+}
 
-        // ==========================================
-        // LOGOUT & MODAL LOGIC
-        // ==========================================
-        const logoutModal = document.getElementById('logoutModal');
-        const logoutBtn = document.getElementById('logoutBtn');
+// ==========================================
+// LOGOUT & MODAL LOGIC
+// ==========================================
+function confirmLogout() {
+    localStorage.clear();
+    window.location.replace('index.html');
+}
 
-        logoutBtn.onclick = function() {
-            logoutModal.style.display = 'block';
-        }
+function closeLogoutModal() {
+    document.getElementById('logoutModal').style.display = 'none';
+}
 
-        function closeLogoutModal() {
-            logoutModal.style.display = 'none';
-        }
+// ==========================================
+// INITIALIZATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Jalankan verifikasi secara diam-diam
+    const isLogged = checkLoginSession();
+    
+    if (isLogged) {
+        displayUserName();
+        // Pastikan modal navigasi tertutup saat dashboard dimuat kembali
+        const navModal = document.getElementById('navigationModal');
+        if (navModal) navModal.style.display = 'none';
+    }
+});
 
-        function confirmLogout() {
-            localStorage.clear(); // Bersihkan semua data sesi
-            window.location.replace('index.html');
-        }
+// Event listener untuk tombol logout original
+document.getElementById('logoutBtn').onclick = function() {
+    document.getElementById('logoutModal').style.display = 'block';
+};
 
-        // ==========================================
-        // INITIALIZATION
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Verifikasi sesi saat halaman dimuat
-            if (checkLoginSession()) {
-                displayUserName();
-                console.log('Dashboard initialized for user:', localStorage.getItem('userName'));
-            }
-        });
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target == logoutModal) {
-                closeLogoutModal();
-            }
-        };
-    </script>
-</body>
-</html>
+window.onclick = function(event) {
+    if (event.target.className === 'modal') {
+        event.target.style.display = 'none';
+    }
+};
