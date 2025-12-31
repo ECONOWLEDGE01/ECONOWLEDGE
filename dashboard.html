@@ -367,17 +367,22 @@
          * Check if user is logged in by verifying session in localStorage
          * Redirects to index.html if not logged in
          */
-        function checkLoginSession() {
-            const userSession = localStorage.getItem('userSession');
-            const userName = localStorage.getItem('userName');
+     function checkLoginSession() {
+    const userSession = localStorage.getItem('userSession');
+    const userName = localStorage.getItem('userName');
 
-            if (!userSession || !userName) {
-                console.warn('No active session found. Redirecting to login page...');
-                redirectToLogin();
-                return false;
-            }
+    // Jika data tidak ada, kita beri pesan peringatan sebelum melempar balik
+    if (!userSession || !userName) {
+        console.warn('Sesi tidak ditemukan. Mengarahkan ke login...');
+        
+        // Opsional: Jika sedang tahap development, Anda bisa mengomentari baris di bawah ini
+        // agar tidak terus-menerus terlempar ke index.html
+        window.location.href = 'index.html';
+        return false;
+    }
 
-            return true;
+    return true;
+}
         }
 
         /**
