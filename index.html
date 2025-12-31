@@ -2,69 +2,446 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Login | Econowledge</title>
-    
-    <link rel="stylesheet" href="style-base.css">
-    <link rel="stylesheet" href="style-ui.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECONOWLEDGE - Selamat Datang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .login-section {
+            flex: 1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand {
+            margin-bottom: 30px;
+        }
+
+        .brand h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .brand p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .welcome-text {
+            margin-bottom: 30px;
+        }
+
+        .welcome-text h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .welcome-text p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input[type="email"]:focus,
+        .form-group input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .remember-me label {
+            margin: 0;
+            cursor: pointer;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .forgot-password {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #764ba2;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider::before {
+            margin-right: 15px;
+        }
+
+        .divider::after {
+            margin-left: 15px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .social-btn:hover {
+            border-color: #667eea;
+            background: #f5f7ff;
+        }
+
+        .terms-agreement {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .terms-agreement a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-agreement a:hover {
+            text-decoration: underline;
+        }
+
+        .signup-section {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .signup-text {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .signup-btn {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            color: #764ba2;
+        }
+
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-content {
+            text-align: center;
+        }
+
+        .brand-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .brand-content p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .features li {
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li::before {
+            content: '✓';
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .brand-section {
+                padding: 30px 20px;
+            }
+
+            .login-section {
+                padding: 30px 20px;
+            }
+
+            .brand-content h2 {
+                font-size: 24px;
+            }
+
+            .welcome-text h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <div class="app-container">
-        
-        <header class="login-header">
-            <img src="assets/images/logo.png" alt="Logo Econowledge - Platform Edukasi Ekonomi" class="img-logo">
-        </header>
-
-        <section class="login-section">
-            <div class="login-batik-frame">
-                
-                <div class="login-card-inner">
-                    <h1 class="ui-title-bold">Selamat Datang</h1>
-                    
-                    <form action="dashboard.html" method="post"> <!-- Tambah method untuk form -->
-                        <div class="ui-form-group">
-                            <label for="email" class="sr-only">Email</label> <!-- Label tersembunyi untuk aksesibilitas -->
-                            <input type="email" id="email" placeholder="Email address" class="ui-input-field" required>
-                        </div>
-                        <div class="ui-form-group">
-                            <label for="password" class="sr-only">Password</label>
-                            <input type="password" id="password" placeholder="Enter password" class="ui-input-field" required>
-                        </div>
-                        
-                        <div class="form-utils">
-                            <input type="checkbox" id="remember">
-                            <label for="remember" class="form-label">Remember me</label>
-                        </div>
-
-                        <button type="submit" class="ui-btn-signup">Login</button> <!-- Ubah ke "Login" -->
-
-                        <div class="agreement-box">
-                            <input type="checkbox" id="agree" required>
-                            <label for="agree" class="form-label">I agree to the <a href="#">Terms</a> & <a href="#">Privacy Policy</a>.</label>
-                        </div>
-
-                        <div class="divider-text">or sign up with</div>
-
-                        <div class="social-flex">
-                            <button type="button" class="btn-social" aria-label="Login with Facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </button>
-                            <button type="button" class="btn-social" aria-label="Login with Google">
-                                <i class="fab fa-google"></i>
-                            </button>
-                            <button type="button" class="btn-social" aria-label="Login with Apple">
-                                <i class="fab fa-apple"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    <div class="container">
+        <div class="login-section">
+            <div class="brand">
+                <h1>ECONOWLEDGE</h1>
+                <p>Platform Edukasi Ekonomi Terpadu</p>
             </div>
-        </section>
+
+            <div class="welcome-text">
+                <h2>Selamat Datang</h2>
+                <p>Masuk ke akun Anda untuk melanjutkan perjalanan pembelajaran ekonomi.</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="nama@example.com" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Masukkan password Anda" 
+                        required
+                    >
+                </div>
+
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input 
+                            type="checkbox" 
+                            id="rememberMe" 
+                            name="rememberMe"
+                        >
+                        <label for="rememberMe">Ingat saya</label>
+                    </div>
+                    <a href="#" class="forgot-password">Lupa password?</a>
+                </div>
+
+                <button type="submit" class="login-btn">Masuk</button>
+            </form>
+
+            <div class="divider">atau</div>
+
+            <div class="social-login">
+                <button class="social-btn" type="button">
+                    <span>🔵</span> Google
+                </button>
+                <button class="social-btn" type="button">
+                    <span>👨</span> Facebook
+                </button>
+            </div>
+
+            <div class="terms-agreement">
+                Dengan masuk, Anda menyetujui 
+                <a href="#">Syarat dan Ketentuan</a> 
+                serta 
+                <a href="#">Kebijakan Privasi</a> 
+                kami.
+            </div>
+
+            <div class="signup-section">
+                <p class="signup-text">Belum punya akun?</p>
+                <a href="#" class="signup-btn">Buat akun baru</a>
+            </div>
+        </div>
+
+        <div class="brand-section">
+            <div class="brand-content">
+                <h2>ECONOWLEDGE</h2>
+                <p>Pelajari ekonomi dengan cara yang lebih interaktif dan menyenangkan</p>
+                <ul class="features">
+                    <li>Materi pembelajaran terstruktur</li>
+                    <li>Quiz dan evaluasi interaktif</li>
+                    <li>Komunitas belajar aktif</li>
+                    <li>Sertifikat resmi</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            console.log('Login attempt:', {
+                email: email,
+                password: '****',
+                rememberMe: rememberMe
+            });
+            
+            // Implementasi logika login di sini
+            alert('Login berhasil! (Demo)');
+        });
+
+        // Social login handlers
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const provider = this.textContent.trim();
+                console.log('Social login with:', provider);
+                alert(`Login dengan ${provider} (Demo)`);
+            });
+        });
+    </script>
 </body>
 </html>
