@@ -387,6 +387,10 @@
             navigationMessage.innerHTML = `Accessing <strong>${featureTitle}</strong>. Please wait...`;
             navigationModal.style.display = 'block';
 
+            // Navigasi setelah delay singkat
+            setTimeout(() => {
+                window.location.href = featurePage;
+            }, 800);
         }
 
         // ==========================================
