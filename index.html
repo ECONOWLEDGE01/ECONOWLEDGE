@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECONOWLEDGE - Selamat Datang</title>
+    <title>ECONOWLEDGE - Login</title>
     <style>
         * {
             margin: 0;
@@ -21,118 +21,127 @@
             padding: 20px;
         }
 
-        .container {
-            display: flex;
-            width: 100%;
-            max-width: 1000px;
+        .login-container {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .login-section {
-            flex: 1;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 420px;
             padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            animation: slideIn 0.5s ease-out;
         }
 
-        .brand {
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-section {
+            text-align: center;
             margin-bottom: 30px;
         }
 
-        .brand h1 {
+        .logo-section h1 {
+            color: #667eea;
             font-size: 28px;
-            color: #333;
             margin-bottom: 8px;
             font-weight: 700;
         }
 
-        .brand p {
-            color: #666;
+        .logo-section p {
+            color: #999;
             font-size: 14px;
-        }
-
-        .welcome-text {
-            margin-bottom: 30px;
-        }
-
-        .welcome-text h2 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .welcome-text p {
-            color: #888;
-            font-size: 14px;
-            line-height: 1.5;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 8px;
             color: #333;
+            font-weight: 600;
             font-size: 14px;
-            font-weight: 500;
         }
 
-        .form-group input[type="email"],
-        .form-group input[type="password"] {
+        .form-group.error label {
+            color: #e74c3c;
+        }
+
+        input[type="email"],
+        input[type="password"] {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
 
-        .form-group input[type="email"]:focus,
-        .form-group input[type="password"]:focus {
+        input[type="email"]:focus,
+        input[type="password"]:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .form-options {
+        .form-group.error input {
+            border-color: #e74c3c;
+        }
+
+        .form-group.error input:focus {
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            font-size: 14px;
+            margin-bottom: 24px;
+            font-size: 13px;
         }
 
         .remember-me {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
+        input[type="checkbox"] {
             cursor: pointer;
             accent-color: #667eea;
         }
 
         .remember-me label {
             margin: 0;
-            cursor: pointer;
+            font-weight: 500;
             color: #666;
-            font-weight: 400;
+            cursor: pointer;
         }
 
         .forgot-password {
             color: #667eea;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             transition: color 0.3s ease;
         }
 
@@ -140,307 +149,520 @@
             color: #764ba2;
         }
 
-        .login-btn {
+        .submit-btn {
             width: 100%;
             padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
         }
 
-        .login-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .login-btn:active {
+        .submit-btn:active:not(:disabled) {
             transform: translateY(0);
         }
 
-        .divider {
-            display: flex;
-            align-items: center;
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            color: #999;
-            font-size: 14px;
+            font-size: 13px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
         }
 
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e0e0e0;
+        .alert.show {
+            display: block;
         }
 
-        .divider::before {
-            margin-right: 15px;
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
 
-        .divider::after {
-            margin-left: 15px;
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
-        .social-login {
-            display: flex;
-            gap: 12px;
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .demo-credentials {
+            background-color: #f0f4ff;
+            border: 1px solid #dde5f7;
+            border-radius: 8px;
+            padding: 12px 14px;
             margin-bottom: 20px;
+            font-size: 13px;
+            color: #444;
         }
 
-        .social-btn {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            background: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .social-btn:hover {
-            border-color: #667eea;
-            background: #f5f7ff;
-        }
-
-        .terms-agreement {
-            font-size: 12px;
-            color: #888;
-            text-align: center;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .terms-agreement a {
+        .demo-credentials strong {
             color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
         }
 
-        .terms-agreement a:hover {
-            text-decoration: underline;
-        }
-
-        .signup-section {
+        .signup-link {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .signup-text {
+            margin-top: 20px;
             color: #666;
-            font-size: 14px;
-            margin-bottom: 12px;
+            font-size: 13px;
         }
 
-        .signup-btn {
+        .signup-link a {
             color: #667eea;
             text-decoration: none;
             font-weight: 600;
-            font-size: 15px;
             transition: color 0.3s ease;
         }
 
-        .signup-btn:hover {
+        .signup-link a:hover {
             color: #764ba2;
         }
 
-        .brand-section {
-            flex: 1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
             justify-content: center;
             align-items: center;
-            color: white;
+            z-index: 1000;
         }
 
-        .brand-content {
-            text-align: center;
-        }
-
-        .brand-content h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .brand-content p {
-            font-size: 16px;
-            margin-bottom: 30px;
-            line-height: 1.8;
-            opacity: 0.9;
-        }
-
-        .features {
-            list-style: none;
-            margin-top: 30px;
-        }
-
-        .features li {
-            margin-bottom: 15px;
-            font-size: 14px;
+        .loading-overlay.show {
             display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .features li::before {
-            content: '✓';
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 40px 24px;
             }
 
-            .brand-section {
-                padding: 30px 20px;
-            }
-
-            .login-section {
-                padding: 30px 20px;
-            }
-
-            .brand-content h2 {
+            .logo-section h1 {
                 font-size: 24px;
-            }
-
-            .welcome-text h2 {
-                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-section">
-            <div class="brand">
-                <h1>ECONOWLEDGE</h1>
-                <p>Platform Edukasi Ekonomi Terpadu</p>
-            </div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
 
-            <div class="welcome-text">
-                <h2>Selamat Datang</h2>
-                <p>Masuk ke akun Anda untuk melanjutkan perjalanan pembelajaran ekonomi.</p>
-            </div>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        placeholder="nama@example.com" 
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        placeholder="Masukkan password Anda" 
-                        required
-                    >
-                </div>
-
-                <div class="form-options">
-                    <div class="remember-me">
-                        <input 
-                            type="checkbox" 
-                            id="rememberMe" 
-                            name="rememberMe"
-                        >
-                        <label for="rememberMe">Ingat saya</label>
-                    </div>
-                    <a href="#" class="forgot-password">Lupa password?</a>
-                </div>
-
-                <button type="submit" class="login-btn">Masuk</button>
-            </form>
-
-            <div class="divider">atau</div>
-
-            <div class="social-login">
-                <button class="social-btn" type="button">
-                    <span>🔵</span> Google
-                </button>
-                <button class="social-btn" type="button">
-                    <span>👨</span> Facebook
-                </button>
-            </div>
-
-            <div class="terms-agreement">
-                Dengan masuk, Anda menyetujui 
-                <a href="#">Syarat dan Ketentuan</a> 
-                serta 
-                <a href="#">Kebijakan Privasi</a> 
-                kami.
-            </div>
-
-            <div class="signup-section">
-                <p class="signup-text">Belum punya akun?</p>
-                <a href="#" class="signup-btn">Buat akun baru</a>
-            </div>
+    <div class="login-container">
+        <div class="logo-section">
+            <h1>ECONOWLEDGE</h1>
+            <p>Welcome Back</p>
         </div>
 
-        <div class="brand-section">
-            <div class="brand-content">
-                <h2>ECONOWLEDGE</h2>
-                <p>Pelajari ekonomi dengan cara yang lebih interaktif dan menyenangkan</p>
-                <ul class="features">
-                    <li>Materi pembelajaran terstruktur</li>
-                    <li>Quiz dan evaluasi interaktif</li>
-                    <li>Komunitas belajar aktif</li>
-                    <li>Sertifikat resmi</li>
-                </ul>
-            </div>
+        <div class="alert alert-info" id="infoAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+        <div class="alert alert-success" id="successAlert"></div>
+
+        <div class="demo-credentials">
+            <strong>Demo Credentials:</strong><br>
+            Email: <strong>user@econowledge.com</strong><br>
+            Password: <strong>password123</strong>
         </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <div class="options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Sign In
+            </button>
+
+            <div class="signup-link">
+                Don't have an account? <a href="#signup">Create one now</a>
+            </div>
+        </form>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-            
-            console.log('Login attempt:', {
-                email: email,
-                password: '****',
-                rememberMe: rememberMe
-            });
-            
-            // Implementasi logika login di sini
-            alert('Login berhasil! (Demo)');
+        // Configuration
+        const CONFIG = {
+            DEMO_EMAIL: 'user@econowledge.com',
+            DEMO_PASSWORD: 'password123',
+            DASHBOARD_URL: 'dashboard.html',
+            SESSION_KEY: 'econowledge_session',
+            USER_KEY: 'econowledge_user',
+            REMEMBER_KEY: 'econowledge_remember'
+        };
+
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const rememberCheckbox = document.getElementById('remember');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorAlert = document.getElementById('errorAlert');
+        const successAlert = document.getElementById('successAlert');
+        const infoAlert = document.getElementById('infoAlert');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeForm();
+            checkExistingSession();
         });
 
-        // Social login handlers
-        document.querySelectorAll('.social-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const provider = this.textContent.trim();
-                console.log('Social login with:', provider);
-                alert(`Login dengan ${provider} (Demo)`);
-            });
+        /**
+         * Initialize form with saved credentials if available
+         */
+        function initializeForm() {
+            const savedEmail = localStorage.getItem(CONFIG.REMEMBER_KEY);
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberCheckbox.checked = true;
+                passwordInput.focus();
+            }
+        }
+
+        /**
+         * Check if user already has an active session
+         */
+        function checkExistingSession() {
+            const session = localStorage.getItem(CONFIG.SESSION_KEY);
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    if (isSessionValid(sessionData)) {
+                        showInfo('Session found. Redirecting to dashboard...');
+                        setTimeout(() => {
+                            window.location.href = CONFIG.DASHBOARD_URL;
+                        }, 1000);
+                    } else {
+                        localStorage.removeItem(CONFIG.SESSION_KEY);
+                        localStorage.removeItem(CONFIG.USER_KEY);
+                    }
+                } catch (error) {
+                    console.error('Error parsing session:', error);
+                    localStorage.removeItem(CONFIG.SESSION_KEY);
+                    localStorage.removeItem(CONFIG.USER_KEY);
+                }
+            }
+        }
+
+        /**
+         * Check if session is still valid
+         */
+        function isSessionValid(sessionData) {
+            if (!sessionData || !sessionData.timestamp) {
+                return false;
+            }
+
+            // Session expires after 24 hours
+            const sessionAge = Date.now() - sessionData.timestamp;
+            const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+
+            return sessionAge < TWENTY_FOUR_HOURS;
+        }
+
+        /**
+         * Form submission handler
+         */
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearAlerts();
+
+            // Validate form
+            if (!validateForm()) {
+                return;
+            }
+
+            await handleLogin();
+        });
+
+        /**
+         * Validate form inputs
+         */
+        function validateForm() {
+            let isValid = true;
+
+            // Validate email
+            if (!emailInput.value.trim()) {
+                setFieldError('email', 'Email address is required');
+                isValid = false;
+            } else if (!isValidEmail(emailInput.value)) {
+                setFieldError('email', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                clearFieldError('email');
+            }
+
+            // Validate password
+            if (!passwordInput.value) {
+                setFieldError('password', 'Password is required');
+                isValid = false;
+            } else if (passwordInput.value.length < 6) {
+                setFieldError('password', 'Password must be at least 6 characters');
+                isValid = false;
+            } else {
+                clearFieldError('password');
+            }
+
+            return isValid;
+        }
+
+        /**
+         * Validate email format
+         */
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        /**
+         * Set field error
+         */
+        function setFieldError(fieldName, errorMessage) {
+            const input = document.getElementById(fieldName);
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            const formGroup = input.closest('.form-group');
+
+            input.classList.add('error');
+            formGroup.classList.add('error');
+            errorElement.textContent = errorMessage;
+        }
+
+        /**
+         * Clear field error
+         */
+        function clearFieldError(fieldName) {
+            const input = document.getElementById(fieldName);
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            const formGroup = input.closest('.form-group');
+
+            input.classList.remove('error');
+            formGroup.classList.remove('error');
+            errorElement.textContent = '';
+        }
+
+        /**
+         * Handle login process
+         */
+        async function handleLogin() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            submitBtn.disabled = true;
+            showLoadingOverlay(true);
+
+            try {
+                // Simulate API call with 800ms delay for UX
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                // Validate credentials
+                if (email === CONFIG.DEMO_EMAIL && password === CONFIG.DEMO_PASSWORD) {
+                    // Successful login
+                    createSession(email);
+                    
+                    if (rememberCheckbox.checked) {
+                        localStorage.setItem(CONFIG.REMEMBER_KEY, email);
+                    } else {
+                        localStorage.removeItem(CONFIG.REMEMBER_KEY);
+                    }
+
+                    showSuccess('Login successful! Redirecting...');
+                    
+                    setTimeout(() => {
+                        window.location.href = CONFIG.DASHBOARD_URL;
+                    }, 1000);
+                } else {
+                    // Invalid credentials
+                    showError('Invalid email or password. Please try again.');
+                    clearFieldError('password');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('An error occurred during login. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                showLoadingOverlay(false);
+            }
+        }
+
+        /**
+         * Create user session in localStorage
+         */
+        function createSession(email) {
+            const sessionData = {
+                email: email,
+                timestamp: Date.now(),
+                sessionId: generateSessionId()
+            };
+
+            const userData = {
+                email: email,
+                name: email.split('@')[0],
+                loginTime: new Date().toISOString()
+            };
+
+            localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(sessionData));
+            localStorage.setItem(CONFIG.USER_KEY, JSON.stringify(userData));
+        }
+
+        /**
+         * Generate unique session ID
+         */
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        /**
+         * Show loading overlay
+         */
+        function showLoadingOverlay(show) {
+            if (show) {
+                loadingOverlay.classList.add('show');
+            } else {
+                loadingOverlay.classList.remove('show');
+            }
+        }
+
+        /**
+         * Show error alert
+         */
+        function showError(message) {
+            errorAlert.textContent = message;
+            errorAlert.classList.add('show');
+            errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        /**
+         * Show success alert
+         */
+        function showSuccess(message) {
+            successAlert.textContent = message;
+            successAlert.classList.add('show');
+            successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        /**
+         * Show info alert
+         */
+        function showInfo(message) {
+            infoAlert.textContent = message;
+            infoAlert.classList.add('show');
+        }
+
+        /**
+         * Clear all alerts
+         */
+        function clearAlerts() {
+            errorAlert.classList.remove('show');
+            successAlert.classList.remove('show');
+            infoAlert.classList.remove('show');
+        }
+
+        /**
+         * Real-time validation on input change
+         */
+        emailInput.addEventListener('blur', () => {
+            if (emailInput.value.trim()) {
+                if (isValidEmail(emailInput.value)) {
+                    clearFieldError('email');
+                } else {
+                    setFieldError('email', 'Please enter a valid email address');
+                }
+            }
+        });
+
+        passwordInput.addEventListener('blur', () => {
+            if (passwordInput.value && passwordInput.value.length < 6) {
+                setFieldError('password', 'Password must be at least 6 characters');
+            } else if (passwordInput.value) {
+                clearFieldError('password');
+            }
+        });
+
+        /**
+         * Clear errors on input
+         */
+        emailInput.addEventListener('input', () => {
+            if (emailInput.classList.contains('error')) {
+                clearFieldError('email');
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (passwordInput.classList.contains('error')) {
+                clearFieldError('password');
+            }
         });
     </script>
 </body>
