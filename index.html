@@ -5,417 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECONOWLEDGE - Login</title>
     <style>
-        /* --- STYLE TIDAK DIUBAH (Sesuai Permintaan) --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
 
         .login-container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 420px;
-            padding: 50px 40px;
-            animation: slideIn 0.5s ease-out;
+            max-width: 400px;
+            text-align: center;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .logo-login {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
         }
 
-        .logo-section { text-align: center; margin-bottom: 30px; }
-        .logo-section h1 { color: #667eea; font-size: 28px; margin-bottom: 8px; font-weight: 700; }
-        .logo-section p { color: #999; font-size: 14px; }
-
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 14px; }
-        
-        .form-group.error label { color: #e74c3c; }
-
-        input[type="email"], input[type="password"] {
-            width: 100%; padding: 12px 16px;
-            border: 2px solid #e0e0e0; border-radius: 8px;
-            font-size: 14px; transition: all 0.3s ease; font-family: inherit;
+        p {
+            color: #666;
+            margin-bottom: 30px;
         }
 
-        input[type="email"]:focus, input[type="password"]:focus {
-            outline: none; border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        .form-group.error input { border-color: #e74c3c; }
-        .form-group.error input:focus { box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1); }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
 
-        .error-message {
-            color: #e74c3c; font-size: 13px; margin-top: 6px;
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #667eea;
+        }
+
+        .login-btn {
+            width: 100%;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #764ba2;
+        }
+
+        .error-msg {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
             display: none;
-        }
-        .form-group.error .error-message { display: block; }
-
-        .options {
-            display: flex; justify-content: space-between;
-            align-items: center; margin-bottom: 24px; font-size: 13px;
-        }
-
-        .remember-me { display: flex; align-items: center; gap: 6px; }
-        input[type="checkbox"] { cursor: pointer; accent-color: #667eea; }
-        .remember-me label { margin: 0; font-weight: 500; color: #666; cursor: pointer; }
-
-        .forgot-password {
-            color: #667eea; text-decoration: none; font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        .forgot-password:hover { color: #764ba2; }
-
-        .submit-btn {
-            width: 100%; padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; border-radius: 8px;
-            font-size: 14px; font-weight: 600; cursor: pointer;
-            transition: all 0.3s ease; margin-bottom: 16px;
-        }
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-        .submit-btn:active:not(:disabled) { transform: translateY(0); }
-        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-
-        .spinner {
-            display: inline-block; width: 14px; height: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%; border-top-color: white;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px; vertical-align: middle;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .alert {
-            padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;
-            font-size: 13px; display: none; animation: slideIn 0.3s ease-out;
-        }
-        .alert.show { display: block; }
-        .alert-success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert-error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .alert-info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
-
-        .demo-credentials {
-            background-color: #f0f4ff; border: 1px solid #dde5f7;
-            border-radius: 8px; padding: 12px 14px; margin-bottom: 20px;
-            font-size: 13px; color: #444;
-        }
-        .demo-credentials strong { color: #667eea; }
-
-        .signup-link { text-align: center; margin-top: 20px; color: #666; font-size: 13px; }
-        .signup-link a {
-            color: #667eea; text-decoration: none; font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        .signup-link a:hover { color: #764ba2; }
-
-        .loading-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.5); display: none;
-            justify-content: center; align-items: center; z-index: 1000;
-        }
-        .loading-overlay.show { display: flex; }
-
-        @media (max-width: 480px) {
-            .login-container { padding: 40px 24px; }
-            .logo-section h1 { font-size: 24px; }
         }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner" style="width: 40px; height: 40px; border-width: 4px;"></div>
-    </div>
 
     <div class="login-container">
-        <div class="logo-section">
-            <h1>ECONOWLEDGE</h1>
-            <p>Welcome Back</p>
+        <div class="logo-login">ECONOWLEDGE</div>
+        <p>Login to access your dashboard</p>
+
+        <div class="form-group">
+            <label for="username">Full Name</label>
+            <input type="text" id="username" placeholder="Enter your name..." required>
         </div>
 
-        <div class="alert alert-info" id="infoAlert"></div>
-        <div class="alert alert-error" id="errorAlert"></div>
-        <div class="alert alert-success" id="successAlert"></div>
-
-        <div class="demo-credentials">
-            <strong>Demo Credentials:</strong><br>
-            Email: <strong>user@econowledge.com</strong><br>
-            Password: <strong>password123</strong>
-        </div>
-
-        <form id="loginForm" novalidate>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email" 
-                    placeholder="Enter your email"
-                    autocomplete="email"
-                    required
-                >
-                <div class="error-message" id="emailError"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                    required
-                >
-                <div class="error-message" id="passwordError"></div>
-            </div>
-
-            <div class="options">
-                <div class="remember-me">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">Remember me</label>
-                </div>
-                <a href="#" class="forgot-password">Forgot Password?</a>
-            </div>
-
-            <button type="submit" class="submit-btn" id="submitBtn">
-                Sign In
-            </button>
-
-            <div class="signup-link">
-                Don't have an account? <a href="#">Create one now</a>
-            </div>
-        </form>
+        <button class="login-btn" id="loginBtn">Login Now</button>
+        <div class="error-msg" id="errorMsg">Please enter your name to continue!</div>
     </div>
 
     <script>
-        // --- KONFIGURASI UTAMA ---
-        const CONFIG = {
-            DEMO_EMAIL: 'user@econowledge.com',
-            DEMO_PASSWORD: 'password123',
-            DASHBOARD_URL: 'dashboard.html', // Pastikan file ini ada di folder yang sama
-            SESSION_KEY: 'econowledge_session',
-            REMEMBER_KEY: 'econowledge_remember'
-        };
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const userNameInput = document.getElementById('username').value;
+            const errorMsg = document.getElementById('errorMsg');
 
-        // --- SELECTOR DOM ---
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const rememberCheckbox = document.getElementById('remember');
-        const submitBtn = document.getElementById('submitBtn');
-        const errorAlert = document.getElementById('errorAlert');
-        const successAlert = document.getElementById('successAlert');
-        const infoAlert = document.getElementById('infoAlert');
-        const loadingOverlay = document.getElementById('loadingOverlay');
+            if (userNameInput.trim() !== "") {
+                // ==========================================
+                // PROSES PENYIMPANAN SESSION (SOLUSI LOOP)
+                // ==========================================
+                
+                // Menyimpan data agar dashboard.html mengenali user
+                localStorage.setItem('userSession', 'active_' + Date.now());
+                localStorage.setItem('userName', userNameInput);
 
-        // --- INISIALISASI ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeForm();
-            // checkExistingSession(); // Opsional: Aktifkan jika ingin auto-login
+                console.log('Login successful. Session created.');
+
+                // Redirect ke Dashboard
+                window.location.href = 'dashboard.html'; 
+            } else {
+                // Tampilkan pesan error jika input kosong
+                errorMsg.style.display = 'block';
+            }
         });
 
-        // Cek LocalStorage untuk "Remember Me"
-        function initializeForm() {
-            try {
-                const savedEmail = localStorage.getItem(CONFIG.REMEMBER_KEY);
-                if (savedEmail) {
-                    emailInput.value = savedEmail;
-                    rememberCheckbox.checked = true;
-                }
-            } catch (e) {
-                console.log("LocalStorage access denied/restricted");
-            }
-        }
-
-        // Cek Sesi yang sudah ada (Auto Redirect)
-        function checkExistingSession() {
-            const session = localStorage.getItem(CONFIG.SESSION_KEY);
-            if (session) {
-                try {
-                    const sessionData = JSON.parse(session);
-                    if (isSessionValid(sessionData)) {
-                        showInfo('Session active. Redirecting...');
-                        setTimeout(() => {
-                            window.location.href = CONFIG.DASHBOARD_URL;
-                        }, 1000);
-                    } else {
-                        localStorage.removeItem(CONFIG.SESSION_KEY);
-                    }
-                } catch (error) {
-                    localStorage.removeItem(CONFIG.SESSION_KEY);
-                }
-            }
-        }
-
-        // Validasi durasi sesi (24 Jam)
-        function isSessionValid(sessionData) {
-            if (!sessionData || !sessionData.timestamp) return false;
-            const sessionAge = Date.now() - sessionData.timestamp;
-            const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
-            return sessionAge < TWENTY_FOUR_HOURS;
-        }
-
-        // --- HANDLER SUBMIT FORM ---
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Mencegah reload halaman standar
-            clearAlerts();
-
-            if (!validateForm()) return;
-
-            await handleLogin();
+        // Menghilangkan pesan error saat user mulai mengetik
+        document.getElementById('username').addEventListener('input', function() {
+            document.getElementById('errorMsg').style.display = 'none';
         });
 
-        // --- LOGIKA LOGIN UTAMA ---
-        async function handleLogin() {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-
-            // UI Loading state
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner"></span> Signing In...';
-            showLoadingOverlay(true);
-
-            try {
-                // Simulasi delay API (Agar terlihat prosesnya)
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-                // Cek Kredensial
-                if (email === CONFIG.DEMO_EMAIL && password === CONFIG.DEMO_PASSWORD) {
-                    
-                    // 1. Simpan Sesi
-                    createSession(email);
-                    
-                    // 2. Handle Remember Me
-                    if (rememberCheckbox.checked) {
-                        localStorage.setItem(CONFIG.REMEMBER_KEY, email);
-                    } else {
-                        localStorage.removeItem(CONFIG.REMEMBER_KEY);
-                    }
-
-                    // 3. Tampilkan Sukses & Redirect
-                    showSuccess('Login successful! Redirecting to Dashboard...');
-                    
-                    setTimeout(() => {
-                        window.location.href = CONFIG.DASHBOARD_URL;
-                    }, 1000);
-
-                } else {
-                    showError('Invalid email or password. Please try again.');
-                    passwordInput.value = ''; // Clear password salah
-                    passwordInput.focus();
-                }
-
-            } catch (error) {
-                console.error('Login error:', error);
-                showError('An error occurred. Please try again.');
-            } finally {
-                // Reset UI state (jika gagal)
-                if (submitBtn.disabled && document.getElementById('successAlert').style.display !== 'block') {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-                    showLoadingOverlay(false);
-                }
+        // Menjalankan login jika menekan tombol 'Enter'
+        document.getElementById('username').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginBtn').click();
             }
-        }
-
-        // --- FUNGSI PENDUKUNG ---
-
-        function createSession(email) {
-            const sessionData = {
-                email: email,
-                timestamp: Date.now(),
-                sessionId: 'sess_' + Math.random().toString(36).substr(2, 9)
-            };
-            localStorage.setItem(CONFIG.SESSION_KEY, JSON.stringify(sessionData));
-        }
-
-        function validateForm() {
-            let isValid = true;
-            
-            // Validasi Email
-            if (!emailInput.value.trim()) {
-                setFieldError('email', 'Email is required');
-                isValid = false;
-            } else if (!isValidEmail(emailInput.value)) {
-                setFieldError('email', 'Invalid email format');
-                isValid = false;
-            } else {
-                clearFieldError('email');
-            }
-
-            // Validasi Password
-            if (!passwordInput.value) {
-                setFieldError('password', 'Password is required');
-                isValid = false;
-            } else {
-                clearFieldError('password');
-            }
-
-            return isValid;
-        }
-
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        function setFieldError(fieldName, msg) {
-            const input = document.getElementById(fieldName);
-            const errDiv = document.getElementById(`${fieldName}Error`);
-            input.closest('.form-group').classList.add('error');
-            errDiv.textContent = msg;
-        }
-
-        function clearFieldError(fieldName) {
-            const input = document.getElementById(fieldName);
-            const errDiv = document.getElementById(`${fieldName}Error`);
-            input.closest('.form-group').classList.remove('error');
-            errDiv.textContent = '';
-        }
-
-        function showError(msg) {
-            errorAlert.textContent = msg;
-            errorAlert.classList.add('show');
-        }
-
-        function showSuccess(msg) {
-            successAlert.textContent = msg;
-            successAlert.classList.add('show');
-        }
-
-        function showInfo(msg) {
-            infoAlert.textContent = msg;
-            infoAlert.classList.add('show');
-        }
-
-        function clearAlerts() {
-            errorAlert.classList.remove('show');
-            successAlert.classList.remove('show');
-            infoAlert.classList.remove('show');
-        }
-
-        function showLoadingOverlay(show) {
-            loadingOverlay.classList.toggle('show', show);
-        }
-
-        // Hapus error saat mengetik
-        emailInput.addEventListener('input', () => clearFieldError('email'));
-        passwordInput.addEventListener('input', () => clearFieldError('password'));
+        });
     </script>
 </body>
 </html>
