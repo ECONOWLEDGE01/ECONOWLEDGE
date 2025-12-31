@@ -1,20 +1,1015 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Econo Read | EcoNowledge</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Econo-Listen: Economics podcast platform with interactive content and mini player controls">
+    <title>Econo-Listen - Economics Podcasts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --light-bg: #ecf0f1;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --border-color: #bdc3c7;
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        header h1::before {
+            content: "🎙️";
+            font-size: 3rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-section label {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .filter-section input[type="text"],
+        .filter-section select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-section input[type="text"]:focus,
+        .filter-section select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .search-btn {
+            padding: 0.75rem 2rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        /* Podcast Grid */
+        .podcasts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Podcast Card */
+        .podcast-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .podcast-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .podcast-card:hover .card-image::after {
+            opacity: 1;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+            font-weight: 700;
+        }
+
+        .card-description {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        /* Category Badge */
+        .category-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-badge.macroeconomics {
+            background: #e74c3c;
+        }
+
+        .category-badge.microeconomics {
+            background: #27ae60;
+        }
+
+        .category-badge.finance {
+            background: #f39c12;
+        }
+
+        .category-badge.policy {
+            background: #9b59b6;
+        }
+
+        .category-badge.technology {
+            background: #1abc9c;
+        }
+
+        /* Metadata */
+        .card-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--light-bg);
+            border-bottom: 1px solid var(--light-bg);
+            font-size: 0.9rem;
+            color: var(--light-text);
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item strong {
+            color: var(--dark-text);
+        }
+
+        /* Mini Player */
+        .mini-player {
+            margin-top: 1rem;
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .player-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .player-btn:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+
+        .player-btn.play.playing {
+            background: var(--accent-color);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: #bdc3c7;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--secondary-color);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .progress-bar:hover .progress-bar-fill {
+            background: #2980b9;
+        }
+
+        .time-display {
+            font-size: 0.75rem;
+            color: var(--light-text);
+            min-width: 45px;
+            text-align: right;
+        }
+
+        /* Interactive Features */
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .action-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--light-text);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .filter-section input[type="text"],
+            .filter-section select {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .podcasts-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .mini-player {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress-bar {
+                width: 100%;
+            }
+
+            .card-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+                gap: 0.5rem;
+            }
+
+            header h1::before {
+                font-size: 2rem;
+            }
+
+            header {
+                padding: 2rem 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .podcasts-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .card-content {
+                padding: 1rem;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .card-actions {
+                gap: 0.5rem;
+            }
+
+            .action-btn {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Listener Badge Animation */
+        .listener-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .no-podcasts {
+            grid-column: 1 / -1;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Econo-Listen</h1>
+        <p>Explore the world of economics through engaging podcasts</p>
+    </header>
 
-<header class="header">
-  <h1>Econo Read</h1>
-</header>
+    <div class="container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <input type="text" id="searchInput" placeholder="Search podcasts by title...">
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="macroeconomics">Macroeconomics</option>
+                <option value="microeconomics">Microeconomics</option>
+                <option value="finance">Finance</option>
+                <option value="policy">Policy</option>
+                <option value="technology">Technology & Economics</option>
+            </select>
+            <button class="search-btn" onclick="applyFilters()">Search</button>
+        </div>
 
-<section class="dashboard">
-  <p>Modul literasi ekonomi digital berbasis konten edukatif.</p>
-  <a href="index.html">← Kembali ke Dashboard</a>
-</section>
+        <!-- Statistics Bar -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPodcasts">12</div>
+                <div class="stat-label">Total Podcasts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalListeners">2.5M+</div>
+                <div class="stat-label">Total Listeners</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgDuration">45</div>
+                <div class="stat-label">Avg. Duration (mins)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="categoriesCount">5</div>
+                <div class="stat-label">Categories</div>
+            </div>
+        </div>
 
+        <!-- Podcasts Grid -->
+        <div class="podcasts-grid" id="podcastsGrid"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Econo-Listen. All rights reserved. | Bringing economics to your ears</p>
+    </footer>
+
+    <script>
+        // Podcast Data
+        const podcasts = [
+            {
+                id: 1,
+                title: "Global Markets Today",
+                description: "Daily insights into international economic trends and market movements.",
+                category: "macroeconomics",
+                duration: 28,
+                listeners: 450000,
+                emoji: "🌍",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 2,
+                title: "Business Economics Decoded",
+                description: "Understanding how businesses make economic decisions and compete.",
+                category: "microeconomics",
+                duration: 35,
+                listeners: 320000,
+                emoji: "💼",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 3,
+                title: "Crypto & Blockchain Quarterly",
+                description: "Exploring the economics of cryptocurrencies and blockchain technology.",
+                category: "technology",
+                duration: 52,
+                listeners: 680000,
+                emoji: "₿",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 4,
+                title: "Investment Strategies",
+                description: "Expert analysis on investment portfolios and wealth management.",
+                category: "finance",
+                duration: 42,
+                listeners: 520000,
+                emoji: "📈",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 5,
+                title: "Policy Perspectives",
+                description: "In-depth discussions on government policies and economic reforms.",
+                category: "policy",
+                duration: 48,
+                listeners: 380000,
+                emoji: "🏛️",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 6,
+                title: "Behavioral Economics Today",
+                description: "How psychology influences economic decisions and human behavior.",
+                category: "microeconomics",
+                duration: 40,
+                listeners: 290000,
+                emoji: "🧠",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 7,
+                title: "Sustainable Finance Hub",
+                description: "Green investments and sustainable economic development.",
+                category: "finance",
+                duration: 38,
+                listeners: 410000,
+                emoji: "♻️",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 8,
+                title: "Tech Economy Insights",
+                description: "The economics of artificial intelligence, automation, and innovation.",
+                category: "technology",
+                duration: 56,
+                listeners: 720000,
+                emoji: "🤖",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 9,
+                title: "Labor Markets Monthly",
+                description: "Employment trends, wages, and workforce development analysis.",
+                category: "macroeconomics",
+                duration: 32,
+                listeners: 340000,
+                emoji: "👥",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 10,
+                title: "Inflation & Interest Rates",
+                description: "Understanding monetary policy and its economic implications.",
+                category: "policy",
+                duration: 44,
+                listeners: 510000,
+                emoji: "💰",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 11,
+                title: "Trade & Tariffs Talk",
+                description: "International trade, supply chains, and economic relations.",
+                category: "macroeconomics",
+                duration: 39,
+                listeners: 270000,
+                emoji: "🚢",
+                currentTime: 0,
+                audioUrl: "#"
+            },
+            {
+                id: 12,
+                title: "Real Estate Roundup",
+                description: "Property markets, housing economics, and real estate investments.",
+                category: "finance",
+                duration: 33,
+                listeners: 190000,
+                emoji: "🏠",
+                currentTime: 0,
+                audioUrl: "#"
+            }
+        ];
+
+        let filteredPodcasts = [...podcasts];
+        const playingStates = {};
+
+        // Initialize
+        function init() {
+            renderPodcasts(podcasts);
+            updateStats();
+        }
+
+        // Render Podcasts
+        function renderPodcasts(podcastsToRender) {
+            const grid = document.getElementById('podcastsGrid');
+            
+            if (podcastsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div class="podcast-card no-podcasts">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🔍</div>
+                            <h3>No podcasts found</h3>
+                            <p>Try adjusting your search or filter criteria</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = podcastsToRender.map(podcast => `
+                <div class="podcast-card" data-id="${podcast.id}">
+                    <div class="card-image">${podcast.emoji}</div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h2 class="card-title">${podcast.title}</h2>
+                            <p class="card-description">${podcast.description}</p>
+                            <span class="category-badge ${podcast.category}">${formatCategory(podcast.category)}</span>
+                        </div>
+
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>⏱️</span>
+                                <span><strong>${podcast.duration}</strong> min</span>
+                            </div>
+                            <div class="meta-item listener-count">
+                                <span>👥</span>
+                                <span><strong>${formatListeners(podcast.listeners)}</strong> listeners</span>
+                            </div>
+                        </div>
+
+                        <div class="mini-player">
+                            <div class="player-controls">
+                                <button class="player-btn play" onclick="togglePlay(event, ${podcast.id})" title="Play">▶️</button>
+                                <button class="player-btn" onclick="skipBackward(${podcast.id})" title="Skip back 15s">⏮️</button>
+                                <button class="player-btn" onclick="skipForward(${podcast.id})" title="Skip forward 15s">⏭️</button>
+                            </div>
+                            <div class="progress-bar" onclick="seek(event, ${podcast.id})">
+                                <div class="progress-bar-fill" id="progress-${podcast.id}"></div>
+                            </div>
+                            <div class="time-display" id="time-${podcast.id}">0:00</div>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="action-btn" onclick="toggleFavorite(event, ${podcast.id})" title="Add to favorites">❤️ Save</button>
+                            <button class="action-btn" onclick="addToPlaylist(event, ${podcast.id})" title="Add to playlist">📋 Playlist</button>
+                            <button class="action-btn" onclick="shareEpisode(event, ${podcast.id})" title="Share">📤 Share</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Format category name
+        function formatCategory(category) {
+            const categoryMap = {
+                'macroeconomics': 'Macroeconomics',
+                'microeconomics': 'Microeconomics',
+                'finance': 'Finance',
+                'policy': 'Policy',
+                'technology': 'Technology & Economics'
+            };
+            return categoryMap[category] || category;
+        }
+
+        // Format listeners count
+        function formatListeners(count) {
+            if (count >= 1000000) {
+                return (count / 1000000).toFixed(1) + 'M';
+            } else if (count >= 1000) {
+                return (count / 1000).toFixed(0) + 'K';
+            }
+            return count.toString();
+        }
+
+        // Toggle play
+        function togglePlay(event, podcastId) {
+            event.stopPropagation();
+            const btn = event.target.closest('.player-btn.play');
+            const podcast = podcasts.find(p => p.id === podcastId);
+
+            playingStates[podcastId] = !playingStates[podcastId];
+            
+            if (playingStates[podcastId]) {
+                btn.classList.add('playing');
+                btn.textContent = '⏸️';
+                simulatePlayback(podcastId);
+                showToast(`Now playing: ${podcast.title}`);
+            } else {
+                btn.classList.remove('playing');
+                btn.textContent = '▶️';
+            }
+        }
+
+        // Simulate playback
+        function simulatePlayback(podcastId) {
+            const podcast = podcasts.find(p => p.id === podcastId);
+            const interval = setInterval(() => {
+                if (!playingStates[podcastId]) {
+                    clearInterval(interval);
+                    return;
+                }
+
+                podcast.currentTime = Math.min(podcast.currentTime + 0.1, podcast.duration * 60);
+                updateProgressBar(podcastId);
+
+                if (podcast.currentTime >= podcast.duration * 60) {
+                    playingStates[podcastId] = false;
+                    const btn = document.querySelector(`[data-id="${podcastId}"] .player-btn.play`);
+                    btn.classList.remove('playing');
+                    btn.textContent = '▶️';
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+
+        // Update progress bar
+        function updateProgressBar(podcastId) {
+            const podcast = podcasts.find(p => p.id === podcastId);
+            const progress = (podcast.currentTime / (podcast.duration * 60)) * 100;
+            const progressBar = document.getElementById(`progress-${podcastId}`);
+            const timeDisplay = document.getElementById(`time-${podcastId}`);
+
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+
+            if (timeDisplay) {
+                const minutes = Math.floor(podcast.currentTime / 60);
+                const seconds = Math.floor(podcast.currentTime % 60);
+                timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // Skip forward
+        function skipForward(podcastId) {
+            const podcast = podcasts.find(p => p.id === podcastId);
+            podcast.currentTime = Math.min(podcast.currentTime + 15, podcast.duration * 60);
+            updateProgressBar(podcastId);
+            showToast('Skipped forward 15 seconds');
+        }
+
+        // Skip backward
+        function skipBackward(podcastId) {
+            const podcast = podcasts.find(p => p.id === podcastId);
+            podcast.currentTime = Math.max(podcast.currentTime - 15, 0);
+            updateProgressBar(podcastId);
+            showToast('Skipped backward 15 seconds');
+        }
+
+        // Seek
+        function seek(event, podcastId) {
+            const podcast = podcasts.find(p => p.id === podcastId);
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const percentage = x / rect.width;
+            podcast.currentTime = percentage * (podcast.duration * 60);
+            updateProgressBar(podcastId);
+        }
+
+        // Toggle favorite
+        function toggleFavorite(event, podcastId) {
+            event.target.closest('.action-btn').classList.toggle('active');
+            const podcast = podcasts.find(p => p.id === podcastId);
+            showToast(event.target.closest('.action-btn').classList.contains('active') 
+                ? `Added "${podcast.title}" to favorites` 
+                : `Removed from favorites`);
+        }
+
+        // Add to playlist
+        function addToPlaylist(event, podcastId) {
+            event.target.closest('.action-btn').classList.toggle('active');
+            const podcast = podcasts.find(p => p.id === podcastId);
+            showToast(event.target.closest('.action-btn').classList.contains('active') 
+                ? `Added "${podcast.title}" to playlist` 
+                : `Removed from playlist`);
+        }
+
+        // Share episode
+        function shareEpisode(event, podcastId) {
+            const podcast = podcasts.find(p => p.id === podcastId);
+            const shareText = `Check out "${podcast.title}" on Econo-Listen! 🎙️ Economics made engaging.`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: podcast.title,
+                    text: shareText,
+                    url: window.location.href
+                });
+            } else {
+                showToast(`Shared "${podcast.title}"`);
+            }
+        }
+
+        // Filter podcasts
+        function applyFilters() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+
+            filteredPodcasts = podcasts.filter(podcast => {
+                const matchesSearch = podcast.title.toLowerCase().includes(searchQuery) ||
+                                    podcast.description.toLowerCase().includes(searchQuery);
+                const matchesCategory = !selectedCategory || podcast.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            renderPodcasts(filteredPodcasts);
+            updateStats();
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalListeners = filteredPodcasts.reduce((sum, p) => sum + p.listeners, 0);
+            const avgDuration = Math.round(filteredPodcasts.reduce((sum, p) => sum + p.duration, 0) / filteredPodcasts.length);
+            const uniqueCategories = new Set(filteredPodcasts.map(p => p.category)).size;
+
+            document.getElementById('totalPodcasts').textContent = filteredPodcasts.length;
+            document.getElementById('totalListeners').textContent = formatListeners(totalListeners);
+            document.getElementById('avgDuration').textContent = avgDuration;
+            document.getElementById('categoriesCount').textContent = uniqueCategories;
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                applyFilters();
+            }
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
