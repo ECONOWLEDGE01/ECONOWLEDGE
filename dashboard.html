@@ -15,598 +15,482 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding-bottom: 80px;
-            color: #333;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header Section */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* Header Styles */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        .greeting {
+        .logo {
             font-size: 28px;
-            font-weight: 700;
+            font-weight: bold;
             color: #667eea;
-            margin-bottom: 20px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .user-info {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .greeting-emoji {
-            font-size: 32px;
-        }
-
-        /* Search Bar */
-        .search-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .search-bar {
-            flex: 1;
-            max-width: 500px;
-            padding: 12px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
+        .user-name {
             font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s ease;
+            color: #e0e0e0;
         }
 
-        .search-bar:focus {
-            border-color: #667eea;
-        }
-
-        .search-btn {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .logout-btn {
+            background-color: #e74c3c;
             color: white;
             border: none;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
         }
 
-        .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .logout-btn:hover {
+            background-color: #c0392b;
         }
 
         /* Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-
-        /* Featured Video Section */
-        .featured-section {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .video-thumbnail {
-            position: relative;
-            width: 100%;
-            height: 350px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .container {
+            flex: 1;
+            padding: 40px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+        }
+
+        .welcome-section {
+            text-align: center;
             color: white;
-            font-size: 18px;
-            overflow: hidden;
+            margin-bottom: 40px;
         }
 
-        .video-thumbnail::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 350"><rect fill="url(%23grad)" width="1200" height="350"/><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(102,126,234);stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(118,75,162);stop-opacity:1" /></linearGradient></defs></svg>');
-            opacity: 0.7;
-        }
-
-        .play-button {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-            z-index: 10;
-        }
-
-        .play-button:hover {
-            transform: scale(1.1);
-            background: white;
-        }
-
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 25px solid #667eea;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            margin-left: 5px;
-        }
-
-        .video-info {
-            padding: 20px;
-            background: white;
-        }
-
-        .video-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #333;
+        .welcome-section h1 {
+            font-size: 48px;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .video-description {
+        .welcome-section p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
             color: #666;
             font-size: 14px;
             line-height: 1.6;
-        }
-
-        /* Video Controls */
-        .video-controls {
-            display: flex;
-            gap: 20px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .control-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s ease;
-            color: #333;
-        }
-
-        .control-btn:hover {
-            background: #e0e0e0;
-        }
-
-        /* Menu Grid Section */
-        .menu-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 25px;
-            margin-top: 20px;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .menu-item {
-            background: white;
-            border-radius: 15px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .menu-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .menu-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-
-        .menu-label {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        /* Trending Section */
-        .trending-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #333;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .trending-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .trending-item {
-            background: #f9f9f9;
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .feature-card button {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
         }
 
-        .trending-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .feature-card button:hover {
+            background-color: #764ba2;
         }
 
-        .trending-thumbnail {
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
             width: 100%;
-            height: 120px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
-        .trending-thumbnail::after {
-            content: '▶';
-            font-size: 30px;
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .modal-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .confirm-btn {
+            background-color: #667eea;
             color: white;
         }
 
-        .trending-item-info {
-            padding: 15px;
+        .confirm-btn:hover {
+            background-color: #764ba2;
         }
 
-        .trending-item-title {
-            font-size: 14px;
-            font-weight: 600;
+        .cancel-btn {
+            background-color: #e0e0e0;
             color: #333;
-            margin-bottom: 8px;
         }
 
-        .trending-item-stats {
-            font-size: 12px;
-            color: #999;
+        .cancel-btn:hover {
+            background-color: #c0c0c0;
         }
 
-        /* Bottom Navigation Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-top: 2px solid #eee;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            z-index: 200;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 10px 15px;
-            cursor: pointer;
-            text-decoration: none;
-            color: #999;
-            transition: color 0.3s ease;
-            flex: 1;
-            text-align: center;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            color: #667eea;
-        }
-
-        .nav-icon {
-            font-size: 24px;
-        }
-
-        .nav-label {
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .greeting {
-                font-size: 20px;
-            }
-
-            .menu-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .video-thumbnail {
-                height: 250px;
-            }
-
-            .play-button {
-                width: 60px;
-                height: 60px;
-            }
-
-            .play-button::after {
-                border-left: 18px solid #667eea;
-                border-top: 11px solid transparent;
-                border-bottom: 11px solid transparent;
-            }
-
-            .trending-items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .greeting {
-                font-size: 18px;
-            }
-
-            .menu-grid {
-                grid-template-columns: repeat(2, 1fr);
+            header {
+                flex-direction: column;
                 gap: 15px;
             }
 
-            .menu-item {
-                padding: 20px 15px;
+            .header-right {
+                width: 100%;
+                justify-content: center;
             }
 
-            .menu-icon {
-                font-size: 36px;
+            .welcome-section h1 {
+                font-size: 32px;
             }
 
-            .menu-label {
-                font-size: 14px;
-            }
-
-            .video-thumbnail {
-                height: 200px;
-            }
-
-            .trending-items {
+            .features-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .modal-content {
+                width: 90%;
             }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <div class="header">
-        <div class="header-content">
-            <div class="greeting">
-                <span class="greeting-emoji">👋</span>
-                <span>Halo! Eno People</span>
-            </div>
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search for courses, topics, or videos...">
-                <button class="search-btn">Search</button>
+    <header>
+        <div class="header-left">
+            <div class="logo">ECONOWLEDGE</div>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <span class="user-name" id="userNameDisplay">User</span>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
             </div>
         </div>
-    </div>
+    </header>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <!-- Featured Video Section -->
-        <div class="featured-section">
-            <div class="video-thumbnail">
-                <div class="play-button"></div>
-            </div>
-            <div class="video-info">
-                <div class="video-title">Understanding Economics in Today's World</div>
-                <div class="video-description">
-                    Explore the fundamentals of modern economics and how global events shape markets. Learn from expert economists about inflation, GDP, and sustainable economic growth.
-                </div>
-                <div class="video-controls">
-                    <button class="control-btn">▶ Play</button>
-                    <button class="control-btn">⏸ Pause</button>
-                    <button class="control-btn">🔊 Volume</button>
-                    <button class="control-btn">⚙ Settings</button>
-                    <button class="control-btn">❤ Like</button>
-                </div>
-            </div>
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome to ECONOWLEDGE</h1>
+            <p>Explore, Learn, and Master Economics</p>
         </div>
 
-        <!-- Menu Grid -->
-        <div class="menu-title">Explore Our Platforms</div>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <div class="menu-icon">📚</div>
-                <div class="menu-label">Econo Read</div>
+        <div class="features-grid">
+            <!-- Econo-Read -->
+            <div class="feature-card">
+                <div class="icon">📖</div>
+                <h3>Econo-Read</h3>
+                <p>Dive into comprehensive economic articles, case studies, and tutorials curated for learners of all levels.</p>
+                <button onclick="navigateToFeature('econo-read.html')">Explore</button>
             </div>
-            <div class="menu-item">
-                <div class="menu-icon">🎯</div>
-                <div class="menu-label">Vision</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-icon">🎧</div>
-                <div class="menu-label">Listen</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-icon">💬</div>
-                <div class="menu-label">Forum</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-icon">🔔</div>
-                <div class="menu-label">Alert</div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-icon">💡</div>
-                <div class="menu-label">Insights</div>
-            </div>
-        </div>
 
-        <!-- Trending Section -->
-        <div class="trending-section">
-            <div class="section-title">
-                <span>🔥</span>
-                <span>Trending Now</span>
+            <!-- Econo-Vision -->
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Econo-Vision</h3>
+                <p>Visualize economic data with interactive charts, graphs, and real-time market analysis.</p>
+                <button onclick="navigateToFeature('econo-vision.html')">Explore</button>
             </div>
-            <div class="trending-items">
-                <div class="trending-item">
-                    <div class="trending-thumbnail"></div>
-                    <div class="trending-item-info">
-                        <div class="trending-item-title">Stock Market Basics</div>
-                        <div class="trending-item-stats">2.3K views • 156 likes</div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-thumbnail"></div>
-                    <div class="trending-item-info">
-                        <div class="trending-item-title">Crypto Economics 101</div>
-                        <div class="trending-item-stats">5.1K views • 342 likes</div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-thumbnail"></div>
-                    <div class="trending-item-info">
-                        <div class="trending-item-title">Global Trade Explained</div>
-                        <div class="trending-item-stats">3.8K views • 287 likes</div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-thumbnail"></div>
-                    <div class="trending-item-info">
-                        <div class="trending-item-title">Personal Finance Tips</div>
-                        <div class="trending-item-stats">4.2K views • 398 likes</div>
-                    </div>
-                </div>
+
+            <!-- Econo-Listen -->
+            <div class="feature-card">
+                <div class="icon">🎧</div>
+                <h3>Econo-Listen</h3>
+                <p>Tune into economic podcasts, expert interviews, and audio content from industry leaders.</p>
+                <button onclick="navigateToFeature('econo-listen.html')">Explore</button>
+            </div>
+
+            <!-- Econo-Forum -->
+            <div class="feature-card">
+                <div class="icon">💬</div>
+                <h3>Econo-Forum</h3>
+                <p>Engage with a community of economics enthusiasts, ask questions, and share insights.</p>
+                <button onclick="navigateToFeature('econo-forum.html')">Explore</button>
+            </div>
+
+            <!-- Econo-Alert -->
+            <div class="feature-card">
+                <div class="icon">🚨</div>
+                <h3>Econo-Alert</h3>
+                <p>Stay informed with real-time market alerts and notifications on key economic indicators.</p>
+                <button onclick="navigateToFeature('econo-alert.html')">Explore</button>
+            </div>
+
+            <!-- Econo-Insights -->
+            <div class="feature-card">
+                <div class="icon">💡</div>
+                <h3>Econo-Insights</h3>
+                <p>Get personalized insights and recommendations based on your learning progress and interests.</p>
+                <button onclick="navigateToFeature('econo-insights.html')">Explore</button>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <div class="nav-icon">🏠</div>
-            <div class="nav-label">Home</div>
-        </a>
-        <a href="#" class="nav-item">
-            <div class="nav-icon">🔍</div>
-            <div class="nav-label">Explore</div>
-        </a>
-        <a href="#" class="nav-item">
-            <div class="nav-icon">📚</div>
-            <div class="nav-label">Library</div>
-        </a>
-        <a href="#" class="nav-item">
-            <div class="nav-icon">⭐</div>
-            <div class="nav-label">Wishlist</div>
-        </a>
-        <a href="#" class="nav-item">
-            <div class="nav-icon">👤</div>
-            <div class="nav-label">Profile</div>
-        </a>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ECONOWLEDGE. All rights reserved. | Empowering Economic Literacy</p>
+    </footer>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Logout</h2>
+            <p>Are you sure you want to log out? You will need to log in again to access the dashboard.</p>
+            <div class="modal-buttons">
+                <button class="confirm-btn" onclick="confirmLogout()">Yes, Logout</button>
+                <button class="cancel-btn" onclick="closeLogoutModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Confirmation Modal -->
+    <div id="navigationModal" class="modal">
+        <div class="modal-content">
+            <h2>Redirecting...</h2>
+            <p id="navigationMessage">Please wait while we redirect you to the requested feature.</p>
+        </div>
     </div>
 
     <script>
-        // Search functionality
-        document.querySelector('.search-btn').addEventListener('click', function() {
-            const searchTerm = document.querySelector('.search-bar').value;
-            if (searchTerm.trim()) {
-                console.log('Searching for:', searchTerm);
-                // Add your search logic here
+        // ==========================================
+        // SESSION VALIDATION AND VERIFICATION
+        // ==========================================
+
+        /**
+         * Check if user is logged in by verifying session in localStorage
+         * Redirects to index.html if not logged in
+         */
+        function checkLoginSession() {
+            const userSession = localStorage.getItem('userSession');
+            const userName = localStorage.getItem('userName');
+
+            if (!userSession || !userName) {
+                console.warn('No active session found. Redirecting to login page...');
+                redirectToLogin();
+                return false;
             }
-        });
 
-        // Menu item click handlers
-        const menuItems = document.querySelectorAll('.menu-item');
-        const menuLabels = ['Econo Read', 'Vision', 'Listen', 'Forum', 'Alert', 'Insights'];
-        
-        menuItems.forEach((item, index) => {
-            item.addEventListener('click', function() {
-                console.log('Navigating to:', menuLabels[index]);
-                // Add navigation logic here
-            });
-        });
+            return true;
+        }
 
-        // Video control buttons
-        document.querySelectorAll('.control-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                console.log('Control activated:', this.textContent);
-                // Add video control logic here
-            });
-        });
+        /**
+         * Redirect user to index.html (login page)
+         */
+        function redirectToLogin() {
+            window.location.href = 'index.html';
+        }
 
-        // Bottom navigation active state
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-                console.log('Navigation to:', this.querySelector('.nav-label').textContent);
-            });
-        });
+        /**
+         * Display user name in the header
+         */
+        function displayUserName() {
+            const userName = localStorage.getItem('userName');
+            const userNameDisplay = document.getElementById('userNameDisplay');
 
-        // Play button animation
-        document.querySelector('.play-button').addEventListener('click', function() {
-            console.log('Video player activated');
-            // Add video player logic here
-        });
-
-        // Trending item click handlers
-        document.querySelectorAll('.trending-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const title = this.querySelector('.trending-item-title').textContent;
-                console.log('Playing trending video:', title);
-                // Add video playback logic here
-            });
-        });
-
-        // Search on Enter key
-        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.querySelector('.search-btn').click();
+            if (userName && userNameDisplay) {
+                userNameDisplay.textContent = userName;
             }
+        }
+
+        // ==========================================
+        // LOGOUT FUNCTIONALITY
+        // ==========================================
+
+        /**
+         * Show logout confirmation modal
+         */
+        document.getElementById('logoutBtn')?.addEventListener('click', function() {
+            document.getElementById('logoutModal').style.display = 'block';
         });
+
+        /**
+         * Close logout modal without logging out
+         */
+        function closeLogoutModal() {
+            document.getElementById('logoutModal').style.display = 'none';
+        }
+
+        /**
+         * Confirm logout and clear session data
+         */
+        function confirmLogout() {
+            // Clear session data from localStorage
+            localStorage.removeItem('userSession');
+            localStorage.removeItem('userName');
+
+            console.log('User logged out successfully.');
+            
+            // Redirect to login page
+            redirectToLogin();
+        }
+
+        // ==========================================
+        // NAVIGATION WITH SESSION VALIDATION
+        // ==========================================
+
+        /**
+         * Navigate to feature page with session validation
+         * @param {string} featurePage - The feature page to navigate to (e.g., 'econo-read.html')
+         */
+        function navigateToFeature(featurePage) {
+            // Validate session before navigation
+            if (!checkLoginSession()) {
+                console.error('Navigation blocked: User session is invalid.');
+                redirectToLogin();
+                return;
+            }
+
+            // Show loading modal during navigation
+            const navigationModal = document.getElementById('navigationModal');
+            const navigationMessage = document.getElementById('navigationMessage');
+
+            navigationMessage.textContent = `Loading ${featurePage}...`;
+            navigationModal.style.display = 'block';
+
+            // Navigate to the feature page
+            setTimeout(() => {
+                window.location.href = featurePage;
+            }, 500); // 500ms delay for visual feedback
+        }
+
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+
+        /**
+         * Initialize dashboard on page load
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check login session before rendering dashboard
+            if (!checkLoginSession()) {
+                return;
+            }
+
+            // Display user name in header
+            displayUserName();
+
+            console.log('Dashboard initialized successfully.');
+        });
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const logoutModal = document.getElementById('logoutModal');
+            const navigationModal = document.getElementById('navigationModal');
+
+            if (event.target == logoutModal) {
+                logoutModal.style.display = 'none';
+            }
+            if (event.target == navigationModal) {
+                navigationModal.style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
