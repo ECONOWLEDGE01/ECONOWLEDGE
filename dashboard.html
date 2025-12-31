@@ -262,7 +262,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="header-left">
             <div class="logo">ECONOWLEDGE</div>
@@ -275,7 +274,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <div class="container">
         <div class="welcome-section">
             <h1>Welcome to ECONOWLEDGE</h1>
@@ -283,62 +281,54 @@
         </div>
 
         <div class="features-grid">
-            <!-- Econo-Read -->
-            <div class="feature-card">
+            <div class="feature-card" onclick="navigateToFeature('econo-read.html')">
                 <div class="icon">📖</div>
                 <h3>Econo-Read</h3>
                 <p>Dive into comprehensive economic articles, case studies, and tutorials curated for learners of all levels.</p>
-                <button onclick="navigateToFeature('econo-read.html')">Explore</button>
+                <button>Explore</button>
             </div>
 
-            <!-- Econo-Vision -->
-            <div class="feature-card">
+            <div class="feature-card" onclick="navigateToFeature('econo-vision.html')">
                 <div class="icon">📊</div>
                 <h3>Econo-Vision</h3>
                 <p>Visualize economic data with interactive charts, graphs, and real-time market analysis.</p>
-                <button onclick="navigateToFeature('econo-vision.html')">Explore</button>
+                <button>Explore</button>
             </div>
 
-            <!-- Econo-Listen -->
-            <div class="feature-card">
+            <div class="feature-card" onclick="navigateToFeature('econo-listen.html')">
                 <div class="icon">🎧</div>
                 <h3>Econo-Listen</h3>
                 <p>Tune into economic podcasts, expert interviews, and audio content from industry leaders.</p>
-                <button onclick="navigateToFeature('econo-listen.html')">Explore</button>
+                <button>Explore</button>
             </div>
 
-            <!-- Econo-Forum -->
-            <div class="feature-card">
+            <div class="feature-card" onclick="navigateToFeature('econo-forum.html')">
                 <div class="icon">💬</div>
                 <h3>Econo-Forum</h3>
                 <p>Engage with a community of economics enthusiasts, ask questions, and share insights.</p>
-                <button onclick="navigateToFeature('econo-forum.html')">Explore</button>
+                <button>Explore</button>
             </div>
 
-            <!-- Econo-Alert -->
-            <div class="feature-card">
+            <div class="feature-card" onclick="navigateToFeature('econo-alert.html')">
                 <div class="icon">🚨</div>
                 <h3>Econo-Alert</h3>
                 <p>Stay informed with real-time market alerts and notifications on key economic indicators.</p>
-                <button onclick="navigateToFeature('econo-alert.html')">Explore</button>
+                <button>Explore</button>
             </div>
 
-            <!-- Econo-Insights -->
-            <div class="feature-card">
+            <div class="feature-card" onclick="navigateToFeature('econo-insights.html')">
                 <div class="icon">💡</div>
                 <h3>Econo-Insights</h3>
                 <p>Get personalized insights and recommendations based on your learning progress and interests.</p>
-                <button onclick="navigateToFeature('econo-insights.html')">Explore</button>
+                <button>Explore</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 ECONOWLEDGE. All rights reserved. | Empowering Economic Literacy</p>
     </footer>
 
-    <!-- Logout Confirmation Modal -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <h2>Confirm Logout</h2>
@@ -350,150 +340,93 @@
         </div>
     </div>
 
-    <!-- Navigation Confirmation Modal -->
     <div id="navigationModal" class="modal">
         <div class="modal-content">
-            <h2>Redirecting...</h2>
+            <h2 id="navTitle">Redirecting...</h2>
             <p id="navigationMessage">Please wait while we redirect you to the requested feature.</p>
         </div>
     </div>
 
     <script>
         // ==========================================
-        // SESSION VALIDATION AND VERIFICATION
+        // SESSION VALIDATION (Mencegah Loop)
         // ==========================================
+        function checkLoginSession() {
+            const userSession = localStorage.getItem('userSession');
+            const userName = localStorage.getItem('userName');
 
-        /**
-         * Check if user is logged in by verifying session in localStorage
-         * Redirects to index.html if not logged in
-         */
-     function checkLoginSession() {
-    const userSession = localStorage.getItem('userSession');
-    const userName = localStorage.getItem('userName');
-
-    // Jika data tidak ada, kita beri pesan peringatan sebelum melempar balik
-    if (!userSession || !userName) {
-        console.warn('Sesi tidak ditemukan. Mengarahkan ke login...');
-        
-        // Opsional: Jika sedang tahap development, Anda bisa mengomentari baris di bawah ini
-        // agar tidak terus-menerus terlempar ke index.html
-        window.location.href = 'index.html';
-        return false;
-    }
-
-    return true;
-}
+            if (!userSession || !userName) {
+                // Jangan pakai alert berlebihan agar tidak loop, langsung arahkan
+                window.location.replace('index.html');
+                return false;
+            }
+            return true;
         }
 
-        /**
-         * Redirect user to index.html (login page)
-         */
-        function redirectToLogin() {
-            window.location.href = 'index.html';
-        }
-
-        /**
-         * Display user name in the header
-         */
         function displayUserName() {
             const userName = localStorage.getItem('userName');
             const userNameDisplay = document.getElementById('userNameDisplay');
-
             if (userName && userNameDisplay) {
                 userNameDisplay.textContent = userName;
             }
         }
 
         // ==========================================
-        // LOGOUT FUNCTIONALITY
+        // NAVIGASI (Sesuaikan dengan fitur tersedia)
         // ==========================================
-
-        /**
-         * Show logout confirmation modal
-         */
-        document.getElementById('logoutBtn')?.addEventListener('click', function() {
-            document.getElementById('logoutModal').style.display = 'block';
-        });
-
-        /**
-         * Close logout modal without logging out
-         */
-        function closeLogoutModal() {
-            document.getElementById('logoutModal').style.display = 'none';
-        }
-
-        /**
-         * Confirm logout and clear session data
-         */
-        function confirmLogout() {
-            // Clear session data from localStorage
-            localStorage.removeItem('userSession');
-            localStorage.removeItem('userName');
-
-            console.log('User logged out successfully.');
-            
-            // Redirect to login page
-            redirectToLogin();
-        }
-
-        // ==========================================
-        // NAVIGATION WITH SESSION VALIDATION
-        // ==========================================
-
-        /**
-         * Navigate to feature page with session validation
-         * @param {string} featurePage - The feature page to navigate to (e.g., 'econo-read.html')
-         */
         function navigateToFeature(featurePage) {
-            // Validate session before navigation
-            if (!checkLoginSession()) {
-                console.error('Navigation blocked: User session is invalid.');
-                redirectToLogin();
-                return;
-            }
+            // Cek sesi sebelum pindah
+            if (!checkLoginSession()) return;
 
-            // Show loading modal during navigation
             const navigationModal = document.getElementById('navigationModal');
             const navigationMessage = document.getElementById('navigationMessage');
-
-            navigationMessage.textContent = `Loading ${featurePage}...`;
+            
+            // Nama fitur untuk pesan visual
+            const featureTitle = featurePage.split('.')[0].replace('-', ' ').toUpperCase();
+            
+            navigationMessage.innerHTML = `Accessing <strong>${featureTitle}</strong>. Please wait...`;
             navigationModal.style.display = 'block';
 
-            // Navigate to the feature page
+            // Navigasi setelah delay singkat
             setTimeout(() => {
                 window.location.href = featurePage;
-            }, 500); // 500ms delay for visual feedback
+            }, 800);
+        }
+
+        // ==========================================
+        // LOGOUT & MODAL LOGIC
+        // ==========================================
+        const logoutModal = document.getElementById('logoutModal');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        logoutBtn.onclick = function() {
+            logoutModal.style.display = 'block';
+        }
+
+        function closeLogoutModal() {
+            logoutModal.style.display = 'none';
+        }
+
+        function confirmLogout() {
+            localStorage.clear(); // Bersihkan semua data sesi
+            window.location.replace('index.html');
         }
 
         // ==========================================
         // INITIALIZATION
         // ==========================================
-
-        /**
-         * Initialize dashboard on page load
-         */
         document.addEventListener('DOMContentLoaded', function() {
-            // Check login session before rendering dashboard
-            if (!checkLoginSession()) {
-                return;
+            // Verifikasi sesi saat halaman dimuat
+            if (checkLoginSession()) {
+                displayUserName();
+                console.log('Dashboard initialized for user:', localStorage.getItem('userName'));
             }
-
-            // Display user name in header
-            displayUserName();
-
-            console.log('Dashboard initialized successfully.');
         });
 
-        // Close modal when clicking outside of it
+        // Close modal when clicking outside
         window.onclick = function(event) {
-            const logoutModal = document.getElementById('logoutModal');
-            const navigationModal = document.getElementById('navigationModal');
-
             if (event.target == logoutModal) {
-                logoutModal.style.display = 'none';
-            }
-            if (event.target == navigationModal) {
-                navigationModal.style.display = 'none';
+                closeLogoutModal();
             }
         };
     </script>
