@@ -1,20 +1,1269 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Econo Vision | EcoNowledge</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Econo-Vision - Educational Video Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        /* Main Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Filter Tabs */
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .filter-btn:hover {
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-left: auto;
+        }
+
+        .search-box {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            width: 250px;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* Video Card */
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3em;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-card:hover .play-button {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .video-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-category {
+            display: inline-block;
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .video-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .watch-btn {
+            flex: 1;
+            padding: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .watch-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .watchlist-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .watchlist-btn.added {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Analytics Card */
+        .analytics-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .analytics-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #f0f4ff;
+            padding-bottom: 10px;
+        }
+
+        .trending-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .trending-views {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 1em;
+        }
+
+        .trending-engagement {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .metric-bar {
+            width: 100%;
+            height: 6px;
+            background: #f0f4ff;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+        }
+
+        /* Watch List */
+        .watchlist-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .watchlist-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #f0f4ff;
+            padding-bottom: 10px;
+        }
+
+        .watchlist-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .watchlist-item-title {
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .remove-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #ff5252;
+        }
+
+        .empty-watchlist {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-player {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            position: relative;
+        }
+
+        .video-player-icon {
+            font-size: 4em;
+            opacity: 0.5;
+        }
+
+        .modal-details {
+            padding: 30px;
+        }
+
+        .modal-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .modal-category {
+            display: inline-block;
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .modal-meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-meta-label {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .modal-meta-value {
+            color: #333;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .modal-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .modal-btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .modal-btn-secondary {
+            background: #f0f4ff;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #e8ecff;
+        }
+
+        .engagement-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .engagement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .engagement-stat {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .engagement-stat-icon {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .engagement-stat-value {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .engagement-stat-label {
+            font-size: 0.8em;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                grid-template-columns: repeat(2, 1fr);
+                flex-direction: row;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .filter-tabs {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+
+            .search-container {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .modal-player {
+                height: 300px;
+            }
+
+            .engagement-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .no-videos {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .no-videos-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎬 Econo-Vision</h1>
+            <p>Explore premium economic and financial education content</p>
+        </div>
 
-<header class="header">
-  <h1>Econo Vision</h1>
-</header>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Video Section -->
+            <div>
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" data-filter="all">All Videos</button>
+                        <button class="filter-btn" data-filter="economics">Economics</button>
+                        <button class="filter-btn" data-filter="trading">Trading</button>
+                        <button class="filter-btn" data-filter="investing">Investing</button>
+                        <button class="filter-btn" data-filter="crypto">Cryptocurrency</button>
+                        <button class="filter-btn" data-filter="analysis">Market Analysis</button>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" class="search-box" id="searchInput" placeholder="Search videos...">
+                    </div>
+                </div>
 
-<section class="dashboard">
-  <p>Modul literasi ekonomi digital berbasis konten edukatif.</p>
-  <a href="index.html">← Kembali ke Dashboard</a>
-</section>
+                <!-- Video Grid -->
+                <div class="video-grid" id="videoGrid">
+                    <!-- Videos will be populated here by JavaScript -->
+                </div>
+            </div>
 
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Trending Analytics -->
+                <div class="analytics-card">
+                    <h3>📊 Trending Now</h3>
+                    <div id="trendingList">
+                        <!-- Trending items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Watch List -->
+                <div class="watchlist-panel">
+                    <h3>⭐ My Watch List</h3>
+                    <div id="watchlistContainer">
+                        <div class="empty-watchlist">Your watch list is empty</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalVideoTitle">Video Title</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-player" id="modalPlayer">
+                <div class="video-player-icon">▶️</div>
+            </div>
+            <div class="modal-details">
+                <div class="modal-category" id="modalCategory">Category</div>
+                <h1 class="modal-title" id="modalFullTitle">Video Title</h1>
+                
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Creator</span>
+                        <span class="modal-meta-value" id="modalCreator">Creator Name</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Duration</span>
+                        <span class="modal-meta-value" id="modalDuration">45:30</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Published</span>
+                        <span class="modal-meta-value" id="modalPublished">2 days ago</span>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="modal-meta-label">Views</span>
+                        <span class="modal-meta-value" id="modalViews">125K</span>
+                    </div>
+                </div>
+
+                <p class="modal-description" id="modalDescription">Video description goes here</p>
+
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-btn-primary" id="modalWatchBtn">Continue Watching</button>
+                    <button class="modal-btn modal-btn-secondary" id="modalWatchlistBtn">+ Add to Watch List</button>
+                </div>
+
+                <!-- Engagement Metrics -->
+                <div class="engagement-section">
+                    <h3 style="color: #333; margin-bottom: 15px; font-size: 1.1em;">📈 Engagement Metrics</h3>
+                    <div class="engagement-grid">
+                        <div class="engagement-stat">
+                            <div class="engagement-stat-icon">👍</div>
+                            <div class="engagement-stat-value" id="modalLikes">4.2K</div>
+                            <div class="engagement-stat-label">Likes</div>
+                        </div>
+                        <div class="engagement-stat">
+                            <div class="engagement-stat-icon">💬</div>
+                            <div class="engagement-stat-value" id="modalComments">342</div>
+                            <div class="engagement-stat-label">Comments</div>
+                        </div>
+                        <div class="engagement-stat">
+                            <div class="engagement-stat-icon">📤</div>
+                            <div class="engagement-stat-value" id="modalShares">1.2K</div>
+                            <div class="engagement-stat-label">Shares</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Video Data
+        const videos = [
+            {
+                id: 1,
+                title: "Introduction to Microeconomics",
+                description: "Learn the fundamentals of microeconomic principles",
+                category: "economics",
+                thumbnail: "📚",
+                duration: "45:30",
+                creator: "Dr. Elena Smith",
+                views: "125K",
+                likes: "4200",
+                comments: "342",
+                shares: "1200",
+                published: "2 days ago",
+                engagement: 8.5,
+                content: "Comprehensive guide to microeconomic theory including supply and demand, elasticity, and consumer behavior."
+            },
+            {
+                id: 2,
+                title: "Day Trading Strategies for Beginners",
+                description: "Master essential day trading techniques",
+                category: "trading",
+                thumbnail: "📈",
+                duration: "38:15",
+                creator: "Marcus Johnson",
+                views: "89K",
+                likes: "3100",
+                comments: "215",
+                shares: "890",
+                published: "1 week ago",
+                engagement: 7.8,
+                content: "Complete roadmap for starting your day trading journey with proven strategies and risk management."
+            },
+            {
+                id: 3,
+                title: "Stock Market Investing 101",
+                description: "Build a strong investment portfolio from scratch",
+                category: "investing",
+                thumbnail: "💼",
+                duration: "52:45",
+                creator: "Sarah Williams",
+                views: "156K",
+                likes: "5600",
+                comments: "478",
+                shares: "2300",
+                published: "3 days ago",
+                engagement: 9.2,
+                content: "Learn how to build a diversified investment portfolio and achieve long-term wealth growth."
+            },
+            {
+                id: 4,
+                title: "Cryptocurrency Deep Dive",
+                description: "Understand blockchain and digital assets",
+                category: "crypto",
+                thumbnail: "🪙",
+                duration: "61:20",
+                creator: "David Chen",
+                views: "201K",
+                likes: "7800",
+                comments: "621",
+                shares: "3400",
+                published: "5 days ago",
+                engagement: 9.5,
+                content: "Complete guide to cryptocurrency, blockchain technology, and how to safely invest in digital assets."
+            },
+            {
+                id: 5,
+                title: "Technical Analysis Masterclass",
+                description: "Learn to read charts and identify patterns",
+                category: "analysis",
+                thumbnail: "📊",
+                duration: "48:10",
+                creator: "Prof. Robert Taylor",
+                views: "98K",
+                likes: "3900",
+                comments: "267",
+                shares: "1450",
+                published: "1 week ago",
+                engagement: 8.1,
+                content: "Advanced technical analysis techniques for identifying profitable trading opportunities."
+            },
+            {
+                id: 6,
+                title: "Macroeconomics and Global Markets",
+                description: "Understand how global economies interact",
+                category: "economics",
+                thumbnail: "🌍",
+                duration: "55:35",
+                creator: "Dr. Lisa Anderson",
+                views: "112K",
+                likes: "4500",
+                comments: "389",
+                shares: "1800",
+                published: "4 days ago",
+                engagement: 8.7,
+                content: "Comprehensive exploration of macroeconomic principles and their impact on global financial markets."
+            },
+            {
+                id: 7,
+                title: "Options Trading Strategies",
+                description: "Advanced options trading for profit",
+                category: "trading",
+                thumbnail: "⚡",
+                duration: "42:50",
+                creator: "James Mitchell",
+                views: "87K",
+                likes: "2900",
+                comments: "198",
+                shares: "756",
+                published: "6 days ago",
+                engagement: 7.6,
+                content: "Learn proven options trading strategies to generate consistent income from the market."
+            },
+            {
+                id: 8,
+                title: "Building Wealth: Real Estate Investing",
+                description: "Alternative investment strategies for success",
+                category: "investing",
+                thumbnail: "🏠",
+                duration: "39:15",
+                creator: "Rachel Green",
+                views: "134K",
+                likes: "5200",
+                comments: "445",
+                shares: "2100",
+                published: "2 weeks ago",
+                engagement: 8.9,
+                content: "Complete guide to real estate investing and building sustainable wealth through property."
+            },
+            {
+                id: 9,
+                title: "DeFi and Smart Contracts Explained",
+                description: "The future of decentralized finance",
+                category: "crypto",
+                thumbnail: "🔗",
+                duration: "44:30",
+                creator: "Tom Harrison",
+                views: "76K",
+                likes: "2800",
+                comments: "189",
+                shares: "654",
+                published: "3 weeks ago",
+                engagement: 7.4,
+                content: "In-depth exploration of decentralized finance protocols and smart contract technology."
+            },
+            {
+                id: 10,
+                title: "Market Sentiment Analysis",
+                description: "Read market psychology and sentiment indicators",
+                category: "analysis",
+                thumbnail: "🧠",
+                duration: "36:45",
+                creator: "Prof. Michael Stone",
+                views: "95K",
+                likes: "3600",
+                comments: "234",
+                shares: "1100",
+                published: "10 days ago",
+                engagement: 8.0,
+                content: "Advanced techniques for analyzing market sentiment and predicting price movements."
+            },
+            {
+                id: 11,
+                title: "Behavioral Economics 101",
+                description: "How psychology affects financial decisions",
+                category: "economics",
+                thumbnail: "🎯",
+                duration: "41:20",
+                creator: "Dr. Patricia Ross",
+                views: "82K",
+                likes: "3200",
+                comments: "276",
+                shares: "1320",
+                published: "2 weeks ago",
+                engagement: 7.9,
+                content: "Explore how psychological principles influence economic behavior and decision-making."
+            },
+            {
+                id: 12,
+                title: "Swing Trading Secrets",
+                description: "Capture medium-term market moves",
+                category: "trading",
+                thumbnail: "🎢",
+                duration: "46:15",
+                creator: "Kevin Davis",
+                views: "104K",
+                likes: "4100",
+                comments: "312",
+                shares: "1560",
+                published: "1 week ago",
+                engagement: 8.3,
+                content: "Proven swing trading strategies to capture profitable moves in trending markets."
+            }
+        ];
+
+        let watchlist = [];
+        let currentFilter = 'all';
+        let currentSearchTerm = '';
+        let currentVideoData = null;
+
+        // Initialize the page
+        function init() {
+            renderVideos();
+            setupEventListeners();
+            updateTrendingList();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFilter = e.target.dataset.filter;
+                    renderVideos();
+                });
+            });
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                currentSearchTerm = e.target.value.toLowerCase();
+                renderVideos();
+            });
+
+            // Modal close button
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('videoModal').addEventListener('click', (e) => {
+                if (e.target.id === 'videoModal') closeModal();
+            });
+        }
+
+        // Filter videos based on current criteria
+        function getFilteredVideos() {
+            return videos.filter(video => {
+                const matchesCategory = currentFilter === 'all' || video.category === currentFilter;
+                const matchesSearch = video.title.toLowerCase().includes(currentSearchTerm) ||
+                                    video.description.toLowerCase().includes(currentSearchTerm);
+                return matchesCategory && matchesSearch;
+            });
+        }
+
+        // Render video grid
+        function renderVideos() {
+            const filteredVideos = getFilteredVideos();
+            const videoGrid = document.getElementById('videoGrid');
+            
+            if (filteredVideos.length === 0) {
+                videoGrid.innerHTML = '<div class="no-videos"><div class="no-videos-icon">📭</div><p>No videos found. Try a different filter or search term.</p></div>';
+                return;
+            }
+
+            videoGrid.innerHTML = filteredVideos.map(video => `
+                <div class="video-card" onclick="openModal(${video.id})">
+                    <div class="video-thumbnail">
+                        ${video.thumbnail}
+                        <div class="play-button">▶️</div>
+                        <div class="video-duration">${video.duration}</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-category">${capitalizeCategory(video.category)}</div>
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-description">${video.description}</div>
+                        <div class="video-meta">
+                            <span>${video.creator}</span>
+                            <span>${video.published}</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">👁️ ${video.views}</div>
+                            <div class="stat-item">⭐ ${video.likes}</div>
+                        </div>
+                        <div class="video-footer">
+                            <button class="watch-btn" onclick="event.stopPropagation(); playVideo(${video.id})">Watch Now</button>
+                            <button class="watchlist-btn ${watchlist.includes(video.id) ? 'added' : ''}" 
+                                    onclick="event.stopPropagation(); toggleWatchlist(${video.id})">
+                                ${watchlist.includes(video.id) ? '✓' : '+'}</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update trending list in sidebar
+        function updateTrendingList() {
+            const sortedByEngagement = [...videos].sort((a, b) => {
+                const engagementA = (parseInt(a.likes) + parseInt(a.comments) * 2 + parseInt(a.shares)) / 100;
+                const engagementB = (parseInt(b.likes) + parseInt(b.comments) * 2 + parseInt(b.shares)) / 100;
+                return engagementB - engagementA;
+            }).slice(0, 5);
+
+            const trendingList = document.getElementById('trendingList');
+            trendingList.innerHTML = sortedByEngagement.map((video, index) => {
+                const totalEngagement = parseInt(video.likes) + parseInt(video.comments) * 2 + parseInt(video.shares);
+                const maxEngagement = 20000;
+                const barPercentage = (totalEngagement / maxEngagement) * 100;
+                
+                return `
+                    <div class="trending-item" onclick="openModal(${video.id})" style="cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                            <span style="font-size: 1.3em; font-weight: 700; color: #667eea; width: 25px;">${index + 1}</span>
+                            <div class="trending-title">${video.title}</div>
+                        </div>
+                        <div class="trending-views">${video.views} views</div>
+                        <div class="trending-engagement">Engagement: ${(totalEngagement / 1000).toFixed(1)}K</div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: ${barPercentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Toggle watchlist
+        function toggleWatchlist(videoId) {
+            const index = watchlist.indexOf(videoId);
+            if (index > -1) {
+                watchlist.splice(index, 1);
+                showNotification('Removed from watch list');
+            } else {
+                watchlist.push(videoId);
+                showNotification('Added to watch list');
+            }
+            renderVideos();
+            updateWatchlistPanel();
+        }
+
+        // Update watchlist panel
+        function updateWatchlistPanel() {
+            const watchlistContainer = document.getElementById('watchlistContainer');
+            
+            if (watchlist.length === 0) {
+                watchlistContainer.innerHTML = '<div class="empty-watchlist">Your watch list is empty</div>';
+                return;
+            }
+
+            const watchlistVideos = watchlist.map(id => videos.find(v => v.id === id)).filter(v => v);
+            watchlistContainer.innerHTML = watchlistVideos.map(video => `
+                <div class="watchlist-item">
+                    <div class="watchlist-item-title" onclick="openModal(${video.id})" style="cursor: pointer;">
+                        ${video.title}
+                    </div>
+                    <button class="remove-btn" onclick="event.stopPropagation(); toggleWatchlist(${video.id})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        // Open modal with video details
+        function openModal(videoId) {
+            const video = videos.find(v => v.id === videoId);
+            if (!video) return;
+
+            currentVideoData = video;
+            const modal = document.getElementById('videoModal');
+            
+            document.getElementById('modalVideoTitle').textContent = video.title;
+            document.getElementById('modalFullTitle').textContent = video.title;
+            document.getElementById('modalCategory').textContent = capitalizeCategory(video.category);
+            document.getElementById('modalCreator').textContent = video.creator;
+            document.getElementById('modalDuration').textContent = video.duration;
+            document.getElementById('modalPublished').textContent = video.published;
+            document.getElementById('modalViews').textContent = video.views;
+            document.getElementById('modalDescription').textContent = video.content;
+            document.getElementById('modalLikes').textContent = video.likes;
+            document.getElementById('modalComments').textContent = video.comments;
+            document.getElementById('modalShares').textContent = video.shares;
+
+            const watchlistBtn = document.getElementById('modalWatchlistBtn');
+            if (watchlist.includes(videoId)) {
+                watchlistBtn.textContent = '✓ Added to Watch List';
+                watchlistBtn.style.background = '#667eea';
+                watchlistBtn.style.color = 'white';
+                watchlistBtn.style.borderColor = '#667eea';
+            } else {
+                watchlistBtn.textContent = '+ Add to Watch List';
+                watchlistBtn.style.background = '#f0f4ff';
+                watchlistBtn.style.color = '#667eea';
+                watchlistBtn.style.borderColor = '#667eea';
+            }
+
+            document.getElementById('modalWatchlistBtn').onclick = () => toggleWatchlist(videoId);
+            document.getElementById('modalWatchBtn').onclick = () => {
+                showNotification(`Started watching: ${video.title}`);
+                closeModal();
+            };
+
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+        }
+
+        // Play video action
+        function playVideo(videoId) {
+            openModal(videoId);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Utility function
+        function capitalizeCategory(category) {
+            return category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1');
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
